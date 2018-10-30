@@ -77,7 +77,7 @@ The Authorization Server responds to the client with an Access Token Response.
 This response contains an Access Token, specific to the requested authorization.
 The client receives and validates the Access Token and can use the Access Token to send requests to the Service API.
 
-### Step 7. Resource Request(s) and Resource Response
+### Step 7. Resource interaction
 The Client can now send (a) request(s) to the Service, on behalf of its User.
 It does so by sending requests to the Resource Server, along with the Access Token.
 The Resource Server uses the Access Token for its access control decision and any customization of the service or data for the User, if applicable.
