@@ -468,9 +468,11 @@ scopes_supported
 claims_supported
 
     REQUIRED. The list of claims available in the supported scopes. See below. 
-vot
 
-    OPTIONAL. The vectors supported. 
+~~vot~~
+
+~~OPTIONAL. The vectors supported.~~
+
 acr_values
 
     OPTIONAL. The acrs supported. 
@@ -587,9 +589,9 @@ following 2048-bit RSA key:
 
 ##  3.8. Dynamic Registration
 
-If the OP is acting as an iGov OAuth Authorization Server (iGov OAuth2
+If the OP is acting as an **NL**-iGov OAuth Authorization Server (**NL**-iGov OAuth2
 profile), then Dynamic Registration MUST be supported in accordance with that
-specification (see section 3.13).
+specification (see section ~~3.13~~ **ref**).
 
 #  4. User Info
 
@@ -635,9 +637,14 @@ even if it is on file.
 profile
 
     The OpenID Connect Core defined profile provides baseline identity information. It is HIGHLY RECOMMENDED that the attributes for given_name, family_name, address, birthdate be supported by iGov Providers if possible, unless data quality requirements or privacy considerations prevent it. It is left to the OpenID Provider and the trust framework to set any further limitations on this profile data - see Privacy Considerations below. 
-doc
 
-    The identity document type(s) and associated "number" the Provider is capable of providing. Mutliple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available. 
+
+**NL-iGov**
+As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is explicitly excluded in the NL-iGov profile.
+**/NL-iGov**
+~~doc~~
+
+~~The identity document type(s) and associated "number" the Provider is capable of providing. Mutliple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available. ~~
 
 ##  4.3. Claims Request
 
@@ -652,35 +659,38 @@ If the claims request is omitted, the OpenID Provider SHOULD provide a default
 claims set that it has available for the subject, in accordance with any
 policies set out by the trust framework the Provider supports.
 
-Client requesting the doc scope MUST provide a claims request parameter
+**NL-iGov**
+As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is explicitly excluded in the NL-iGov profile.
+**/NL-iGov**
+~~Client requesting the doc scope MUST provide a claims request parameter
 indicating the document type (or types) and fields they wish to receive, or
 they will receive none. The OpenID Provider MUST NOT return any doc related
 claims not included in the claims request. Client requests that include the
 doc scope but no claims request MUST NOT be rejected by the OpenID Provider,
-but simply no doc related claims are returned in the UserInfo object.
+but simply no doc related claims are returned in the UserInfo object.~~
 
 ##  4.4. Claims Response
 
 Response to a UserInfo request MUST match the scope and claims requested to
 avoid having a OpenID Provider over-expose a user's identity information.
 
-The document doc claims response include:
+**NL-iGov**
+As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is explicitly excluded in the NL-iGov profile.
+**/NL-iGov**
 
-type
+~~The document doc claims response include:~~
 
-    The document type. 
-num
+~~type~~
+~~The document type.~~
 
-    The value of the document identifier. Note that not all values are technically numeric. 
-issued
-
-    The date the document was issued. Timestamp format. 
-expires
-
-    The date the document expires (or expired). Timestamp format. 
-issuer_location
-
-    The location/address of the issuing agency. 
+~~num~~
+~~The value of the document identifier. Note that not all values are technically numeric.~~
+~~issued~~
+~~The date the document was issued. Timestamp format.~~
+~~expires~~
+~~The date the document expires (or expired). Timestamp format.~~
+~~issuer_location~~
+~~The location/address of the issuing agency.~~
 
 Claims response MAY also make use of the aggegated and/or distributed claims
 structure to refer to the original source of the subject's claims.
