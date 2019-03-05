@@ -644,7 +644,7 @@ As the Netherlands has standardized on using a citizen identification number (_B
 **/NL-iGov**
 ~~doc~~
 
-~~The identity document type(s) and associated "number" the Provider is capable of providing. Mutliple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available. ~~
+~~The identity document type(s) and associated "number" the Provider is capable of providing. Mutliple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available.~~
 
 ##  4.3. Claims Request
 
@@ -719,29 +719,29 @@ assigned a universal government identifier.
 Request claims MUST be supported by the OpenID Providers to ensure that only
 the data the client explicitly requests is provided in the UserInfo response.
 This prevents situations where a client may only require a partial set of
-claims, but receives (and is therefore exposed to) a full set of claims. For
+claims, but receives (and is therefore exposed to) a full set of claims. ~~For
 example, if a client only needs a single government document type and number,
 the OpenID Provider MUST NOT send the client the full document information,
-possibly from multiple documents.
+possibly from multiple documents.~~
 
 Despite the mechanisms enforced by this specification, the operational
 circumstances of a federation may allow these controls to be relaxed. For
 example, if a framework always requires clients to request a national ID
-number, then the pairwise anonymous identifer requirement may be relaxed. In
+number, then the pairwise anonymous identifer requirement may be relaxed. ~~In
 cases where all clients are entitled to all government document claims
 associated to a subject at an OpenID Provider, the claims request requirement
-may be relaxed.
+may be relaxed.~~
 
 The reasons for relaxing the controls that support data minimalization are
 outside the scope of this specification.
 
 #  6. Security Considerations
 
-All transactions MUST be protected in transit by TLS as described in BCP195 .
+All transactions MUST be protected in transit by TLS as described in BCP195.
 
 All clients MUST conform to applicable recommendations found in the Security
 Considerations sections of [RFC6749] and those found in the OAuth 2.0 Threat
-Model and Security Considerations document .
+Model and Security Considerations document.
 
 #  7. Normative References
 
