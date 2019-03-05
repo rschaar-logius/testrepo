@@ -374,6 +374,10 @@ signature algorithm with a 256-bit hash) and MAY use other asymmetric
 signature and encryption methods listed in the JSON Web Algorithms (JWA)
 specification.
 
+**iGov-NL**
+In addition to RS256, OpenID Providers SHOULD support using the PS256 (RSASSA-PSS using SHA-256 and MGF1 with SHA-256) signature algorithm.
+**/iGov-NL**
+
 ##  3.4. Request Objects
 
 OpenID Providers MUST accept requests containing a request object signed by
