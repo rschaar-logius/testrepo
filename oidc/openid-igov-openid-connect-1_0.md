@@ -1,10 +1,13 @@
 # TODO
  * Intro / use case / context
  * Use PKIo
- * Use cnf where applicable
  * discovery/metadata and client registration
  * examples and steps in the flow not yet detailed in this profile
- * check refs, source igov looks somewhat inconsistent
+ * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
+ * incorporate TLS client authn? --> future updates
+ * code_verifier missing in Token Request?
+ * explicit access token is JWT, as per OAuth2 iGov-NL?
+ * 
 
 
 # Abstract
@@ -110,7 +113,7 @@ client_id
     REQUIRED. OAuth 2.0 Client Identifier valid at the Authorization Server. 
 response_type
 
-    REQUIRED. MUST be set to code . 
+    REQUIRED. MUST be set to code.
 scope
 
     REQUIRED. Indicates the attributes being requested. (See below) 
@@ -135,7 +138,7 @@ acr_values
     OPTIONAL. Lists the acceptable LoAs for this authentication. See (below). MUST not be set if vtr is specified. 
 code_challenge and code_challenge_method
 
-    OPTIONAL. If the PKCE protocol is being used by the client. See OAUTH profile for iGov.
+    OPTIONAL. If the PKCE protocol is being used by the client. See OAUTH profile for iGov-**NL**.
 
 A sample request may look like:
 
@@ -196,6 +199,21 @@ aud
 exp, iat, nbf
 
     The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges 
+
+**iGOV-NL**
+	
+nonce
+
+    The "nonce" field MUST be used by Clients to detect/prevent CSRF, replay and other attacks and Clients MUST verify that the nonce Claim Value is equal to the value of the nonce parameter sent in the Authentication Request.
+aud
+
+    Clients MUST validate they are listed as audience for this ID-token.
+acr
+
+    Client SHOULD validate the authentication context class reference, if present, satifies the minimum required before authorizing access to any resource or performing any operation on behalf of the identified subject.
+
+**/iGov-NL**
+
 
 ##  2.4. Request Objects
 
@@ -472,6 +490,9 @@ authorization_endpoint
 token_endpoint
 
     REQUIRED. The fully qualified URL of the server's token endpoint defined by [RFC6749]. 
+userinfo_endpoint
+
+    REQUIRED. The fully qualified URL of the server's user info endpoint defined by [OpenID.Discovery].
 introspection_endpoint
 
     OPTIONAL. The fully qualified URL of the server's introspection endpoint defined by OAuth Token Introspection. 
@@ -483,7 +504,10 @@ jwks_uri
     REQUIRED. The fully qualified URI of the server's public key in JWK Set format. For verifying the signatures on the id_token. 
 scopes_supported
 
-    REQUIRED. The list of scopes, including iGov scopes, the server supports. 
+    REQUIRED. The list of scopes, including iGov-**NL** scopes, the server supports. 
+response_types_supported
+
+    REQUIRED. MUST be set to code, since only authorization code flow is supported by this profile.
 claims_supported
 
     REQUIRED. The list of claims available in the supported scopes. See below. 
@@ -492,7 +516,7 @@ claims_supported
 
 ~~OPTIONAL. The vectors supported.~~
 
-acr_values
+acr_values_**supported**
 
     OPTIONAL. The acrs supported. 
 
@@ -681,6 +705,7 @@ policies set out by the trust framework the Provider supports.
 **iGov-NL**
 As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is explicitly excluded in the iGov-NL profile.
 **/iGov-NL**
+
 ~~Client requesting the doc scope MUST provide a claims request parameter
 indicating the document type (or types) and fields they wish to receive, or
 they will receive none. The OpenID Provider MUST NOT return any doc related
