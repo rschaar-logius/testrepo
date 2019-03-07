@@ -5,9 +5,7 @@
  * examples and steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
  * incorporate TLS client authn? --> future updates
- * code_verifier missing in Token Request?
  * explicit access token is JWT, as per OAuth2 iGov-NL?
- * 
 
 
 # Abstract
@@ -180,6 +178,14 @@ client_assertion_type
 client_assertion
 
     The value of the signed client authentication JWT generated as described below. The RP must generate a new assertion JWT for each call to the token endpoint. 
+
+**iGov-NL**
+In case the PKCE protocol was used by the Client in the relevant Authentication Request, the `code_verifier` element MUST be included.
+
+code_verifier
+
+    OPTIONAL. If the PKCE protocol was used by the Client in the relevant Authentication Request, the code_verifier MUST be present and the value MUST be the original random code, used to create the hashed challenge in `code_challenge`.
+**/iGov-NL**
 
 ##  2.3. ID Tokens
 
