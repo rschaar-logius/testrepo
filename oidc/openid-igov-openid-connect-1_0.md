@@ -4,7 +4,6 @@
  * discovery/metadata and client registration
  * examples and steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
- * incorporate TLS client authn? --> future updates
  * explicit access token is JWT, as per OAuth2 iGov-NL?
 
 
@@ -127,6 +126,7 @@ nonce
 **iGov-NL**
 vtr has been excluded from the iGov-NL profile, as Europe uses level-of-assurance (LoA) policies which fit best in acr.
 **/iGov-NL**
+
 ~~vtr~~
 
 ~~OPTIONAL. MUST be set to a value as described in Section 6.1 of Vectors of Trust vtr takes precedence over acr_values.~~
@@ -825,3 +825,8 @@ Model and Security Considerations document.
 **[RFC7800]** |  Jones, M., Bradley, J. and H. Tschofenig, "[Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs)](https://tools.ietf.org/html/rfc7800)", RFC 7800, DOI 10.17487/RFC7800, April 2016.  
 **[RFC8485]** |  Richer, J. and L. Johansson, "[Vectors of Trust](https://tools.ietf.org/html/rfc8485)", RFC 8485, DOI 10.17487/RFC8485, October 2018.  
   
+
+# Appendix A. Future updates
+
+## client authentication using mutual TLS
+Instead of, or in addition to, the `private_key_jwt` client authentication method, mutual TLS may be used. This currently is specified in draft by IETF, see https://tools.ietf.org/html/draft-ietf-oauth-mtls-08.
