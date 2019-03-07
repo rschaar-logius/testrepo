@@ -1,3 +1,12 @@
+# TODO
+ * Intro / use case / context
+ * Use PKIo
+ * Use cnf where applicable
+ * discovery/metadata and client registration
+ * examples and steps in the flow not yet detailed in this profile
+ * check refs, source igov looks somewhat inconsistent
+
+
 # Abstract
 
 The OpenID Connect protocol defines an identity federation system that allows
@@ -90,7 +99,7 @@ The iGov-**NL** OAuth2 profile specifies requirements for requests to Authorizat
 Endpoints - for example, when to use the PKCE parameters to secure token
 exchange.
 
-In addition to the requirements specified in Section ~~2.1.1~~ **ref** of the iGov-**NL** OAuth2
+In addition to the requirements specified in Section ~~2.1.1~~ **1.3.1.1 (?)** of the iGov-**NL** OAuth2
 profile, the following describes the supported OpenID Connect Authorization
 Code Flow parameters for use with iGov-**NL** compatible IdPs.
 
@@ -146,8 +155,8 @@ A sample request may look like:
 
 ##  2.2. Requests to the Token Endpoint
 
-In addition to the requirements specified in Section ~~2.1.2~~ **ref** of the iGov-**NL** OAuth2
-profile , the following claims MUST be included:
+In addition to the requirements specified in Section ~~2.1.2~~ **1.3.1.2 (?)** of the iGov-**NL** OAuth2
+profile, the following claims MUST be included:
 
 The following parameters are specified:
 
@@ -161,6 +170,7 @@ code
 **iGov-NL**
 In case the authentication method `private_key_jwt` is used, `client_assertion` and `client_assertion_type` MUST be used.
 **/iGov-NL**
+
 client_assertion_type
 
 	MUST be set to urn:ietf:params:oauth:client-assertion-type:jwt-bearer . 
@@ -396,7 +406,7 @@ requests using them.
 
 ##  ~~3.5. Vectors of Trust~~
 **iGov-NL**
-Vectors of trust have been excluded from the iGov-NL profile, as Europe uses level-of-assurance (LoA) policies which fit best in acr. Although vectors of trust provide more granularity and support for some anonymous use cases, these are less common in citizen-to-government use cases and therefor not included.
+Vectors of trust have been excluded from the iGov-NL profile, as Europe has standardized on level-of-assurance (LoA) policies under eIDAS which fit best in acr. Although vectors of trust provide more granularity and support for some anonymous use cases, these are less common in citizen-to-government use cases and therefor not included.
 **/iGov-NL**
 
 ~~If the vtr (Vectors of Trust Request) value is present in the authorization
@@ -417,10 +427,15 @@ their digital identity practices to valid VOT component values.~~
 
 ##  3.6. Authentication Context
 
-OpenID Providers MAY provide acr (authentication context class reference,
+OpenID Providers ~~MAY~~ **SHOULD** provide acr (authentication context class reference,
 equivalent to the Security Assertion Markup Language (SAML) element of the
 same name) and amr (authentication methods reference) values in ID tokens only
 if vtr is not used.
+
+**iGov-NL**
+As Europe has standardized on level-of-assurance (LoA) policies under eIDAS, the `acr` element is RECOMMENDED to be used. Valid values vary depending on context, use case and OpenID Providers in use. RECOMMENDED is to apply the three eIDAS LoAs (low, substantial and high), using the respective URIs defined by eIDAS as values.
+**/iGov-NL**
+
 
 ##  3.7. Discovery
 
@@ -595,7 +610,7 @@ following 2048-bit RSA key:
 
 If the OP is acting as an iGov-**NL** OAuth Authorization Server (iGov-**NL** OAuth2
 profile), then Dynamic Registration MUST be supported in accordance with that
-specification (see section ~~3.13~~ **ref**).
+specification (see section ~~3.13~~ **1.4.1.3**).
 
 #  4. User Info
 
