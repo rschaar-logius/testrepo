@@ -1,5 +1,5 @@
 # TODO
- * Intro / use case / context
+ * Intro / use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
  * examples and steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
  * explicit access token is JWT, as per OAuth2 iGov-NL?
