@@ -1,4 +1,5 @@
 # TODO
+ * BSN as sector identifier? See under 3.2. Pairwise Identifiers
  * Intro / use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
  * examples and steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
@@ -283,8 +284,11 @@ sub
     REQUIRED. The identifier of the user. OpenID Providers MUST support a pairwise identifier in accordance with OpenID Connect section 8.1. See Pairwise Identifiers below on when it may be useful to relax this requirement. 
 
 **iGov-NL**
+
 `vot` and `vtm` have been excluded from the iGov-NL profile, as Europe uses level-of-assurance (LoA) policies which fit best in acr.
+
 **/iGov-NL**
+
 ~~vot~~
 
 ~~OPTIONAL. The vector value as specified in Vectors of Trust . See Vectors of Trust for more details. vot takes precedence over acr.~~
@@ -347,7 +351,7 @@ Its claims are as follows:
             }
             
 
-##  3.2. Pairwise Identifiers
+##  3.2. Pairwise Identifiers ** and Sector Identifiers **
 
 Pairwise identifiers specified in OpenID Connect Core section 8 help protect
 an end user's privacy by allowing an OpenID Provider to represent a single
@@ -367,6 +371,16 @@ require this functionality. OpenID Providers MAY support public identifiers ~~i~
 for frameworks where public identifiers are required, or for cases where
 public identifiers are shared as attributes and the framework does not have a
 requirement for subject anonymity.
+
+**iGov-NL**
+
+OP SHOULD support sector identifiers. Other than in [OpenID.Core] this can be a sector identifier not under a single administrative control, but used in a broader group of service providers under indirect control such as regulations.
+
+The Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), for citizen to government related interactions.
+Usage of the BSN is restricted by law. The BSN is therefor considered a sector identifier rather than a public identifier.
+
+**/iGov-NL**
+
 
 ##  3.3. UserInfo Endpoint
 
@@ -729,8 +743,11 @@ profile
 
 
 **iGov-NL**
+
 As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is explicitly excluded in the iGov-NL profile.
+
 **/iGov-NL**
+
 ~~doc~~
 
 ~~The identity document type(s) and associated "number" the Provider is capable of providing. Mutliple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available.~~
