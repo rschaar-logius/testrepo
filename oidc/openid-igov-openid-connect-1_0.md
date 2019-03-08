@@ -640,14 +640,16 @@ It is RECOMMENDED that servers provide cache information through HTTP headers
 and make the cache valid for at least one week.
 
 
-### PKIoverheid
 **iGov-NL**
+
+### PKIoverheid
 In case the Relying Party and OpenID Provider are not operated under responsibility of the same organisation, each party MUST use PKIoverheid certificates with OIN.
 
 The PKIoverheid certificate MUST be included as a <code>x5c</code> parameter.
 The <code>x5c</code> parameter MUST be included as a list (array) of X509 certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
 The first certificate MUST be the Client's certificate, optionally followed by the rest of that certificate's chain.
 The jwks structure MUST include the public key parameters with the same values of the corresponding X509 certificate included as <code>x5c</code>, as per [RFC7517] §4.7.
+
 **/iGov-NL**
 
 The server MUST provide its public key in JWK Set format, such as the
