@@ -1,6 +1,5 @@
 # TODO
  * Intro / use case / context
- * Use PKIo (client)
  * discovery/metadata and client registration
  * examples and steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
@@ -234,6 +233,24 @@ MAY be encrypted to the authorization server's public key.
 
 Clients and protected resources SHOULD cache OpenID Provider metadata once an
 OP has been discovered and used by the client.
+
+## 2.6 client authentication and registration
+
+Clients SHOULD be able to perform dynamic registration.
+
+Authentication of the client using the private_key_jwt client authentication method MUST be supported. Alternative client authentication methods MAY be supported, provided they offer at least equivalent security.
+NOTE: the client_secret_jwt method is not considered of equivalent security and the methods client_secret_basic and client_secret_post are obviously less secure. These three mehods therefor MUST NOT be used.
+
+### PKIoverheid
+**iGov-NL**
+In case the Relying Party and OpenID Provider are not operated under responsibility of the same organisation, each party MUST use PKIoverheid certificates with OIN.
+
+The PKIoverheid certificate MUST be included as a <code>x5c</code> parameter.
+The <code>x5c</code> parameter MUST be included as a list (array) of X509 certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
+The first certificate MUST be the Client's certificate, optionally followed by the rest of that certificate's chain.
+The jwks structure MUST include the public key parameters with the same values of the corresponding X509 certificate included as <code>x5c</code>, as per [RFC7517] §4.7.
+**/iGov-NL**
+
 
 #  3. OpenID Provider Profile
 
