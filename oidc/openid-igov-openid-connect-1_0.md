@@ -236,7 +236,9 @@ OP has been discovered and used by the client.
 
 ## 2.6 client authentication and registration
 
-Clients SHOULD be able to perform dynamic registration.
+Clients SHOULD be able to perform dynamic registration. If dynamic registration is not supported, it is up to the descretion of the OP whether and up to what level of detail an alternative process is provided.
+
+Clients MUST be registered using the name of the responsible Service Provider and not any intermediary or supplier related names. The name MUST be familiar and clearly visible shown to the User both at the RP's website as with the OP upon authentication.
 
 Authentication of the client using the private_key_jwt client authentication method MUST be supported. Alternative client authentication methods MAY be supported, provided they offer at least equivalent security.
 NOTE: the client_secret_jwt method is not considered of equivalent security and the methods client_secret_basic and client_secret_post are obviously less secure. These three mehods therefor MUST NOT be used.
@@ -513,9 +515,15 @@ authorization_endpoint
 token_endpoint
 
     REQUIRED. The fully qualified URL of the server's token endpoint defined by [RFC6749]. 
+
+**iGov-NL**
+
 userinfo_endpoint
 
     REQUIRED. The fully qualified URL of the server's user info endpoint defined by [OpenID.Discovery].
+
+**/iGov-NL**
+
 introspection_endpoint
 
     OPTIONAL. The fully qualified URL of the server's introspection endpoint defined by OAuth Token Introspection. 
