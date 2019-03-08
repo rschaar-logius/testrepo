@@ -1,6 +1,5 @@
 # TODO
  * Intro / use case / context
- * discovery/metadata and client registration
  * examples and steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
  * explicit access token is JWT, as per OAuth2 iGov-NL?
@@ -234,9 +233,12 @@ MAY be encrypted to the authorization server's public key.
 Clients and protected resources SHOULD cache OpenID Provider metadata once an
 OP has been discovered and used by the client.
 
-## 2.6 client authentication and registration
+**iGov-NL**
+
+## 2.6 Client Authentication and registration
 
 Clients SHOULD be able to perform dynamic registration. If dynamic registration is not supported, it is up to the descretion of the OP whether and up to what level of detail an alternative process is provided.
+Pre-conditions to registration of Clients with the OP MAY be applicable, for various reasons such as organisatioal, legal, administrative, policy, security or technical reasons. Any such pre-conditions are out of scope of this profile.
 
 Clients MUST be registered using the name of the responsible Service Provider and not any intermediary or supplier related names. The name MUST be familiar and clearly visible shown to the User both at the RP's website as with the OP upon authentication.
 
@@ -244,13 +246,13 @@ Authentication of the client using the private_key_jwt client authentication met
 NOTE: the client_secret_jwt method is not considered of equivalent security and the methods client_secret_basic and client_secret_post are obviously less secure. These three mehods therefor MUST NOT be used.
 
 ### PKIoverheid
-**iGov-NL**
 In case the Relying Party and OpenID Provider are not operated under responsibility of the same organisation, each party MUST use PKIoverheid certificates with OIN.
 
 The PKIoverheid certificate MUST be included as a <code>x5c</code> parameter.
 The <code>x5c</code> parameter MUST be included as a list (array) of X509 certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
 The first certificate MUST be the Client's certificate, optionally followed by the rest of that certificate's chain.
 The jwks structure MUST include the public key parameters with the same values of the corresponding X509 certificate included as <code>x5c</code>, as per [RFC7517] §4.7.
+
 **/iGov-NL**
 
 
