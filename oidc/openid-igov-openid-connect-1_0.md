@@ -1,9 +1,10 @@
 # TODO
  * BSN as sector identifier? See under 3.2. Pairwise Identifiers
+ * explicit redirect_uri, request_uri registration
  * Intro / use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
- * examples and steps in the flow not yet detailed in this profile
+ * steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
- * explicit access token is JWT, as per OAuth2 iGov-NL?
+ * explicit access token is JWT, as per OAuth2 iGov-NL? Note: original iGov example are consistent or even invalid
 
 
 # Abstract
@@ -144,13 +145,11 @@ A sample request may look like:
     https://idp.government.gov/oidc/authorization?
       response_type=code
       &client_id=827937609728-m2mvqffo9bsefh4di90saus4n0diar2h
-      &scope=d+openid
+      &scope=openid+d
       &redirect_uri=https%3A%2F%2Frp.fed1.gov%2Foidc%2FloginResponse
       &state=2ca3359dfbfd0
-      &acr_values=http%3A%2F%2Fidmanagement.gov%2Fns%2Fassurance%2Floa%2F1
-    +http%3A%2F%2Fidmanagement.gov%2Fns%2Fassurance%2Floa%2F2
-    +http%3A%2F%2Fidmanagement.gov%2Fns%2Fassurance%2Floa%2F3 
-    +http%3A%2F%2Fidmanagement.gov%2Fns%2Fa
+	  &nonce=9d3252993a38454c8a6c3a4b86997aaa
+      &acr_values=http%3A%2F%2Feidas.europa.eu%2FLoA%2Fsubstantial
     
 
 ##  2.2. Requests to the Token Endpoint
@@ -336,22 +335,22 @@ Its claims are as follows:
     
     
      {
-            "auth_time": 1418698782,
-            "exp": 1418699412,
-            "sub": "6WZQPpnQxV",
-            "nonce": "188637b3af14a",
+            "iss": "https://idp-p.example.com/",
             "aud": [
               "c1bc84e4-47ee-4b64-bb52-5cda6c81f788"
             ],
-            "iss": "https://idp-p.example.com/",
-            "acr":"LOA1",
-            "vot":"P1.C1",
-            "vtm":"https://ipd-p.example.com/vtm.json"
-            "iat": 1418698812
+            "sub": "6WZQPpnQxV",
+            "nonce": "188637b3af14a",
+            "acr":"http://eidas.europa.eu/LoA/substantial",
+            "auth_time": 1418698782,
+            "iat": 1418698812,
+	        "nbf": 1418698812,
+            "exp": 1418699412,
+			"jti": "b42e57f8-4cfa-474a-afed-f0e9a77880c9"
             }
             
 
-##  3.2. Pairwise Identifiers ** and Sector Identifiers **
+##  3.2. Pairwise Identifiers *and Sector Identifiers*
 
 Pairwise identifiers specified in OpenID Connect Core section 8 help protect
 an end user's privacy by allowing an OpenID Provider to represent a single
@@ -579,14 +578,12 @@ for an authorization server:
       ],
       "registration_endpoint": "https://idp-p.example.com/register",
       "userinfo_signing_alg_values_supported": [
-        "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+        "RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
       ],
       "token_endpoint": "https://idp-p.example.com/token",
       "request_uri_parameter_supported": false,
       "request_object_encryption_enc_values_supported": [
-        "A192CBC-HS384", "A192GCM", "A256CBC+HS512",
-        "A128CBC+HS256", "A256CBC-HS512",
-        "A128CBC-HS256", "A128GCM", "A256GCM"
+        "A192GCM", "A128GCM", "A256GCM"
       ],
       "token_endpoint_auth_methods_supported": [
         "private_key_jwt",
@@ -599,17 +596,15 @@ for an authorization server:
         "public", "pairwise"
       ],
       "id_token_encryption_enc_values_supported": [
-        "A192CBC-HS384", "A192GCM", "A256CBC+HS512",
-        "A128CBC+HS256", "A256CBC-HS512", "A128CBC-HS256",
-        "A128GCM", "A256GCM"
+        "A192GCM", "A128GCM", "A256GCM"
       ],
-      "claims_parameter_supported": false,
+      "claims_parameter_supported": true,
       "jwks_uri": "https://idp-p.example.com/jwk",
       "id_token_signing_alg_values_supported": [
-        "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "none"
+        "RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
       ],
       "authorization_endpoint": "https://idp-p.example.com/authorize",
-      "require_request_uri_registration": false,
+      "require_request_uri_registration": true,
       "introspection_endpoint": "https://idp-p.example.com/introspect",
       "request_object_encryption_alg_values_supported": [
         "RSA-OAEP", ?RSA1_5", "RSA-OAEP-256"
@@ -619,11 +614,11 @@ for an authorization server:
         "code", "token"
       ],
       "token_endpoint_auth_signing_alg_values_supported": [
-        "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+        "RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
       ],
       "revocation_endpoint": "https://idp-p.example.com/revoke",
       "request_object_signing_alg_values_supported": [
-        "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+        "RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
       ],
       "claim_types_supported": [
         "normal"
@@ -632,21 +627,22 @@ for an authorization server:
         "authorization_code",
       ],
       "scopes_supported": [
-        "profile", "openid", "doc"
+        "profile", "openid"
       ],
       "userinfo_endpoint": "https://idp-p.example.com/userinfo",
       "userinfo_encryption_enc_values_supported": [
-        "A192CBC-HS384", "A192GCM", "A256CBC+HS512","A128CBC+HS256",
-        "A256CBC-HS512", "A128CBC-HS256", "A128GCM", "A256GCM"
+        "A192GCM", "A128GCM", "A256GCM"
       ],
       "op_tos_uri": "https://idp-p.example.com/about",
       "issuer": "https://idp-p.example.com/",
       "op_policy_uri": "https://idp-p.example.com/about",
       "claims_supported": [
-        "sub", "name", "vot", "acr"
+        "sub", "name", "acr"
       ],
-      "vot": "???"
-      "acr" " ??? "
+      "acr_values_supported": [
+		  "http://eidas.europa.eu/LoA/substantial",
+		  "http://eidas.europa.eu/LoA/high"
+	  ]
     }
     
 
@@ -670,7 +666,6 @@ The server MUST provide its public key in JWK Set format, such as the
 following 2048-bit RSA key:
 
     
-    
     {
       "keys": [
         {
@@ -684,7 +679,11 @@ following 2048-bit RSA key:
                 E0__RI0kDU-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEq
                 fCaPDNp00J6AbY6w",
           "kty": "RSA",
-          "kid": "rsa1"
+          "kid": "rsa1",
+		  "x5c": "MIIFdDCCA1ygAwIBAgIEAJiiOTANBgkqhkiG9w0BAQsFADBaMQswCQYDVQQGEwJO
+			      ...
+				  QFH1T/U67cjF68IeHRaVesd+QnGTbksVtzDfqu1XhUisHWrdOWnk4Xl4vs4Fv6EM
+				  94B7IWcnMFk="
         }
       ]
     }
