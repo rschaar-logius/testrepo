@@ -1,10 +1,13 @@
 # TODO
  * BSN as sector identifier? See under 3.2. Pairwise Identifiers
- * explicit redirect_uri, request_uri registration
  * Intro / use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
  * steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
- * explicit access token is JWT, as per OAuth2 iGov-NL? Note: original iGov example are consistent or even invalid
+ * explicit access token is JWT, as per OAuth2 iGov-NL?
+
+# NOTES
+ * Note: explicit redirect_uri registration part of OAuth (iGov-NL profile)
+ * Note: original iGov example are inconsistent or even invalid
 
 
 # Abstract
@@ -227,6 +230,14 @@ the authorization endpoint by reference using the request_uri parameter.
 
 Request objects MUST be signed by the client's registered key. Request objects
 MAY be encrypted to the authorization server's public key.
+
+**iGOV-NL**
+
+In case request objects using pass by reference are used, the `request_uri` parameter value MUST be pre-registered. The URI MUST be using either a URN or an absolute HTTPS URI, and MUST contain a sufficient amount of entropy to avoid guessing.
+To avoid attacks by `request_uri` manipulation, the base value of the URI MUST be registered prior to usage and SHOULD be unambiguously distinct from other URIs in use. Since the `request_uri` should at the same time differ for each unique request due to caching considerations, a HTTPS URI MUST use a parameter identifying the request object.
+The `request_uri` value MUST be reachable or retrievable by the OP. The server hosting the `request_uri` MAY require authentication of the OP.
+
+**/iGov-NL**
 
 ##  2.5. Discovery
 
@@ -462,6 +473,15 @@ operation for clients and applications that require it. Clients are not
 required to use request objects, but OpenID Providers are required to support
 requests using them.
 
+**iGOV-NL**
+
+In case request objects using pass by reference are used, the `request_uri` parameter value MUST be pre-registered. The URI MUST be using either a URN or an absolute HTTPS URI and MUST contain a sufficient amount of entropy to avoid guessing.
+To avoid attacks by `request_uri` manipulation, the base value of the URI MUST be registered prior to usage and SHOULD be unambiguously distinct from other URIs in use.
+The `request_uri` value MUST be reachable or retrievable by the OP. The OP MUST support authenticating to the server hosting the `request_uri`.
+
+**/iGov-NL**
+
+
 ##  ~~3.5. Vectors of Trust~~
 **iGov-NL**
 Vectors of trust have been excluded from the iGov-NL profile, as Europe has standardized on level-of-assurance (LoA) policies under eIDAS which fit best in acr. Although vectors of trust provide more granularity and support for some anonymous use cases, these are less common in citizen-to-government use cases and therefor not included.
@@ -565,6 +585,17 @@ claims_supported
 acr_values_**supported**
 
     OPTIONAL. The acrs supported. 
+
+**iGov-NL**
+
+In case the request objects using pass by reference are supported, registration of `request_uri` is required to avoid attacks using rewrites.
+
+require_request_uri_registration
+
+    REQUIRED, value MUST be `true`. Either a URN or absolute HTTPS URI is required to be registered in case passing request objects by reference will be used.
+
+**/iGov-NL**
+
 
 The following example shows the JSON document found at a discovery endpoint
 for an authorization server:
