@@ -1,6 +1,6 @@
 # TODO
  * BSN as sector identifier? See under 3.2. Pairwise Identifiers
- * Intro / use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
+ * Further detail the use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
  * steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
  * explicit access token is JWT, as per OAuth2 iGov-NL?
@@ -25,6 +25,25 @@ This profile builds on top of, and inherits all properties of, the OAUTH
 profile for iGov **in the Netherlands ("iGov-NL")**.
 
 * * *
+
+# Use case
+The generic use case where this profile can be applied, is very similar to the use case for the iGov-NL OAuth2 profile.
+
+As OpenID Connect is not explicitly applicable to Resource Servers, these are left out of scope. As in the original OAuth iGov profile, this profile focuses on a Relying Party also known as a Client.
+
+A Client application wishes to identify *and* authenticate a User. Clients are restricted to web-applications in this version of the profile. Future updates may add support for native applications.
+Next to identification and authentication, a Client may want to receive attributes that are more reliable than self-claimed by the User.
+
+# Flow for identification and authentication
+The flow starts identical to the use case flow of the OAuth2 iGov-NL profile. As with iGov-NL OAuth2, only the authorization code flow is used in this profile.
+Step 1 to 5 of that profile can be applied as-is, with the distinct that the Authorization Request explicitly is an Authentication Request.
+
+Step 6 will result in an Access Token and ID Token. The Access Token can be used in a UserInfo Request or in requests to a Resource Server as in regular OAuth2.
+
+In addition to the ID Token, the Client can make a UserInfo Request. This request can be used to obtain additional information about the User.
+
+Step 7 (Oauth2) is optional or implied. The Relying Party (= Client) can use the authentication result directly -- effectively resulting in resource server integrated in the Client -- or can make requests to a Resource Serv4er using the obtained Access Token as in the OAuth2 use case.
+
 
 #  1. Introduction
 
