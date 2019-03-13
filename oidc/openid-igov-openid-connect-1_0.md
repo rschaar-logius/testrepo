@@ -1,5 +1,6 @@
 # TODO
  * BSN as sector identifier? See under 3.2. Pairwise Identifiers; more detailed specification required here?
+ * * sector identifier may have syntax defined in OIDC-core, usage of sector ID to be reviewed!
  * Further detail the use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
  * steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
@@ -404,6 +405,8 @@ requirement for subject anonymity.
 **iGov-NL**
 
 OP SHOULD support sector identifiers. Other than in [OpenID.Core] this can be a sector identifier not under a single administrative control, but used in a broader group of service providers under indirect control such as regulations.
+
+TODO, NOTE: sector identifiers in [OpenID.Core] may imply expectations for a specific type of implementation, to be reviewed!
 
 The Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), for citizen to government related interactions.
 Usage of the BSN is restricted by law. The BSN is therefor considered a sector identifier rather than a public identifier.
