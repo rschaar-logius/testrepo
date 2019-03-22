@@ -1,6 +1,7 @@
 # TODO
  * BSN as sector identifier? See under 3.2. Pairwise Identifiers; more detailed specification required here?
  * * sector identifier may have syntax defined in OIDC-core, usage of sector ID to be reviewed!
+ * * make explicit: other (sector) identifiers acceptable
  * Further detail the use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
  * guideline for caching metadata
  * steps in the flow not yet detailed in this profile
