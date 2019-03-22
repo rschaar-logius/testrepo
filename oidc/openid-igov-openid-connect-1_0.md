@@ -898,6 +898,15 @@ outside the scope of this specification.
 
 All transactions MUST be protected in transit by TLS as described in BCP195.
 
+**iGov-NL**
+
+In addition to the Best Current Practice for TLS, it is RECOMMENDED for all conforming implementations to incorporate the TLS guidelines from the Dutch NCSC into their implementations.
+For backchannel communitcation, the guidelines categorized as "good" MUST be applied.
+For frontchannel communication, the guidelines for "good" SHOULD be applied and the guidelines for "sufficient" MAY be applied, depending target audience and support requirements.
+Guidelines categorized as "insufficient" MUST NOT be applied and those categorized as "deprecated" SHOULD NOT be used.
+
+**/iGov-NL**
+
 All clients MUST conform to applicable recommendations found in the Security
 Considerations sections of [RFC6749] and those found in the OAuth 2.0 Threat
 Model and Security Considerations document.
