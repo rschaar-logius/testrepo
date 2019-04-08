@@ -1,7 +1,4 @@
 # TODO
- * BSN as sector identifier? See under 3.2. Pairwise Identifiers; more detailed specification required here?
- * * sector identifier may have syntax defined in OIDC-core, usage of sector ID to be reviewed!
- * * make explicit: other (sector) identifiers acceptable
  * Further detail the use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
  * guideline for caching metadata
  * steps in the flow not yet detailed in this profile
@@ -383,7 +380,7 @@ Its claims are as follows:
             }
             
 
-##  3.2. Pairwise Identifiers *and Sector Identifiers*
+##  3.2. Pairwise Identifiers *and Public Identifiers*
 
 Pairwise identifiers specified in OpenID Connect Core section 8 help protect
 an end user's privacy by allowing an OpenID Provider to represent a single
@@ -406,12 +403,17 @@ requirement for subject anonymity.
 
 **iGov-NL**
 
-OP SHOULD support sector identifiers. Other than in [OpenID.Core] this can be a sector identifier not under a single administrative control, but used in a broader group of service providers under indirect control such as regulations.
+The Netherlands has standardized on using a citizen identification number
+(_BurgerServiceNummer_ or BSN), for citizen to government related
+interactions. Usage of the BSN is restricted by Dutch law. The BSN therefor
+SHOULD be protected by additional security controls. For example, a BSN in
+the `sub` parameter can be encrypted to the Relying Party.
 
-TODO, NOTE: sector identifiers in [OpenID.Core] may imply expectations for a specific type of implementation, to be reviewed!
-
-The Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), for citizen to government related interactions.
-Usage of the BSN is restricted by law. The BSN is therefor considered a sector identifier rather than a public identifier.
+A `sub` containing a BSN SHOULD be handled using `subject_type=public`.
+For use cases where the BSN is not explicitly applicable, alternative
+identifiers SHOULD be used. Such subject identifiers can be either public
+or pairwise, depending on the identifier and use case. An OP conforming to
+this profile SHOULD support public identifiers.
 
 **/iGov-NL**
 
