@@ -152,9 +152,9 @@ nonce
 Vectors of Trust have been excluded from the iGov-NL profile, as Europe uses level-of-assurance (LoA) policies which have a better fit with `acr`.
 **/iGov-NL**
 
-~~vtr~~
+vtr
 
-~~OPTIONAL. MUST be set to a value as described in Section 6.1 of Vectors of Trust vtr takes precedence over acr_values.~~
+OPTIONAL. MUST be set to a value as described in Section 6.1 of Vectors of Trust vtr takes precedence over acr_values.
 
 acr_values
 
@@ -321,15 +321,15 @@ sub
 
 **/iGov-NL**
 
-~~vot~~
+vot
 
-~~OPTIONAL. The vector value as specified in Vectors of Trust . See Vectors of Trust for more details. vot takes precedence over acr.~~
-~~vtm~~
+OPTIONAL. The vector value as specified in Vectors of Trust . See Vectors of Trust for more details. vot takes precedence over acr.
+vtm
 
-~~REQUIRED if vot is provided. The trustmark URI as specified in Vectors of Trust . See Vectors of Trust for more details.~~
+REQUIRED if vot is provided. The trustmark URI as specified in Vectors of Trust . See Vectors of Trust for more details.
 acr
 
-    OPTIONAL. The LoA the user was authenticated at. MUST be a member of the acr_values list from the authentication request **or that was agreed upon through other means**. ~~The OpenID Provider MUST NOT include this field if vot is provided~~. See Authentication Context for more details. 
+    OPTIONAL. The LoA the user was authenticated at. MUST be a member of the acr_values list from the authentication request **or that was agreed upon through other means**. The OpenID Provider MUST NOT include this field if vot is provided. See Authentication Context for more details. 
 nonce
 
     REQUIRED. MUST match the nonce value that was provided in the authentication request. 
@@ -506,26 +506,26 @@ The `request_uri` value MUST be reachable or retrievable by the OP. The OP MUST 
 **/iGov-NL**
 
 
-##  ~~3.5. Vectors of Trust~~
+##  3.5. Vectors of Trust
 **iGov-NL**
 Vectors of trust have been excluded from the iGov-NL profile, as Europe has standardized on level-of-assurance (LoA) policies under eIDAS which fit best in acr. Although vectors of trust provide more granularity and support for some anonymous use cases, these are less common in citizen-to-government use cases and therefor not included.
 **/iGov-NL**
 
-~~If the vtr (Vectors of Trust Request) value is present in the authorization
+If the vtr (Vectors of Trust Request) value is present in the authorization
 request as defined in the Vectors of Trust standard, the OpenID Provider
 SHOULD respond with a valid vot value as defined in [section 3.1]. Both the
 vtr and vot MUST contain values in accordance with the Vectors of Trust
 standard. These values MAY be those defined in the Vectors of Trust standard
 directly or MAY be from a compatible standard. The OpenID Provider MAY require
 the user to re-authenticate, provide a second factor, or perform another
-action in order to fulfill the state requested in the vtr.~~
+action in order to fulfill the state requested in the vtr.
 
-~~For backwards compatibility clients MAY send an acr_values parameter. If both
+For backwards compatibility clients MAY send an acr_values parameter. If both
 the vtr and acr_values are in the request, the vtr MUST take precedence and
-the acr_values MUST be ignored.~~
+the acr_values MUST be ignored.
 
-~~It is out of scope of this document to determine how an organization maps
-their digital identity practices to valid VOT component values.~~
+It is out of scope of this document to determine how an organization maps
+their digital identity practices to valid VOT component values.
 
 ##  3.6. Authentication Context
 
@@ -602,9 +602,9 @@ claims_supported
 
     REQUIRED. The list of claims available in the supported scopes. See below. 
 
-~~vot~~
+vot
 
-~~OPTIONAL. The vectors supported.~~
+OPTIONAL. The vectors supported.
 
 acr_values_**supported**
 
