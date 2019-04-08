@@ -1,6 +1,5 @@
 # TODO
  * Further detail the use case / context; use case as in first OAuth2 iGov-NL profile, but explicitly with user authentication and identification.
- * guideline for caching metadata
  * steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
  * explicit access token is JWT, as per OAuth2 iGov-NL?
@@ -264,9 +263,11 @@ The `request_uri` value MUST be reachable or retrievable by the OP. The server h
 ##  2.5. Discovery
 
 Clients and protected resources SHOULD cache OpenID Provider metadata once an
-OP has been discovered and used by the client.
+OP has been discovered and used by the client **or resource server**.
 
 **iGov-NL**
+
+In case the OP uses the recommendations in this profile, caching information is provided through HTTP headers with the OpenID Provider metadata. It is therefor RECOMMENDED for clients and resource servers to use the HTTPS headers when determining validity of cached OP metadata.
 
 ## 2.6 Client Authentication and registration
 
