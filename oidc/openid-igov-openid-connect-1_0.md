@@ -5,7 +5,6 @@
  * explicit access token is JWT, as per OAuth2 iGov-NL?
 
 # NOTES
- * Note: explicit redirect_uri registration part of OAuth (iGov-NL profile)
  * Note: original iGov example are inconsistent or even invalid
 
 
@@ -41,7 +40,7 @@ Step 6 will result in an Access Token and ID Token. The Access Token can be used
 
 In addition to the ID Token, the Client can make a UserInfo Request. This request can be used to obtain additional information about the User.
 
-Step 7 (Oauth2) is optional or implied. The Relying Party (= Client) can use the authentication result directly -- effectively resulting in resource server integrated in the Client -- or can make requests to a Resource Serv4er using the obtained Access Token as in the OAuth2 use case.
+Step 7 (Oauth2) is optional or implied. The Relying Party (= Client) can use the authentication result directly -- effectively resulting in resource server integrated in the Client -- or can make requests to a Resource Serv~~4~~er using the obtained Access Token as in the OAuth2 use case.
 
 
 #  1. Introduction
@@ -161,6 +160,12 @@ acr_values
 code_challenge and code_challenge_method
 
     OPTIONAL. If the PKCE protocol is being used by the client. See OAUTH profile for iGov-**NL**.
+
+**iGov-NL**
+
+Note that a `redirect_uri` MUST be pre-registered with the OpenID Provider as described in the OAuth2 iGov-NL profile.
+
+**/iGov-NL**
 
 A sample request may look like:
 
