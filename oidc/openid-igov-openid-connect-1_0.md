@@ -800,13 +800,13 @@ profile
 
 **iGov-NL**
 
-As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is explicitly excluded in the iGov-NL profile.
+As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is discouraged in the iGov-NL profile. Usage of the `doc` claims in the Netherlands is NOT RECOMMENDED.
 
 **/iGov-NL**
 
-~~doc~~
+doc
 
-~~The identity document type(s) and associated "number" the Provider is capable of providing. Mutliple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available.~~
+The identity document type(s) and associated "number" the Provider is capable of providing. Mu~~t~~l**t**iple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available.
 
 ##  4.3. Claims Request
 
@@ -822,15 +822,17 @@ claims set that it has available for the subject, in accordance with any
 policies set out by the trust framework the Provider supports.
 
 **iGov-NL**
-As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is explicitly excluded in the iGov-NL profile.
+
+As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is discouraged in the iGov-NL profile. Usage of the `doc` claims in the Netherlands is NOT RECOMMENDED.
+
 **/iGov-NL**
 
-~~Client requesting the doc scope MUST provide a claims request parameter
+Client requesting the doc scope MUST provide a claims request parameter
 indicating the document type (or types) and fields they wish to receive, or
 they will receive none. The OpenID Provider MUST NOT return any doc related
 claims not included in the claims request. Client requests that include the
 doc scope but no claims request MUST NOT be rejected by the OpenID Provider,
-but simply no doc related claims are returned in the UserInfo object.~~
+but simply no doc related claims are returned in the UserInfo object.
 
 ##  4.4. Claims Response
 
@@ -838,22 +840,28 @@ Response to a UserInfo request MUST match the scope and claims requested to
 avoid having a OpenID Provider over-expose a user's identity information.
 
 **iGov-NL**
-As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is explicitly excluded in the iGov-NL profile.
+
+As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is discouraged in the iGov-NL profile. Usage of the `doc` claims in the Netherlands is NOT RECOMMENDED.
+
 **/iGov-NL**
 
-~~The document doc claims response include:~~
+The document doc claims response include:
 
-~~type~~
-~~The document type.~~
+type
 
-~~num~~
-~~The value of the document identifier. Note that not all values are technically numeric.~~
-~~issued~~
-~~The date the document was issued. Timestamp format.~~
-~~expires~~
-~~The date the document expires (or expired). Timestamp format.~~
-~~issuer_location~~
-~~The location/address of the issuing agency.~~
+    The document type.
+num
+
+    The value of the document identifier. Note that not all values are technically numeric.
+issued
+
+    The date the document was issued. Timestamp format.
+expires
+
+    The date the document expires (or expired). Timestamp format.
+issuer_location
+
+    The location/address of the issuing agency.
 
 Claims response MAY also make use of the agg**r**egated and/or distributed claims
 structure to refer to the original source of the subject's claims.
