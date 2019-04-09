@@ -30,22 +30,35 @@ profile for iGov **in the Netherlands ("iGov-NL")**.
 * * *
 
 # Use case
-The generic use case where this profile can be applied, is very similar to the use case for the iGov-NL OAuth2 profile.
+The generic use case where this profile can be applied, is very similar to the 
+use case for the iGov-NL OAuth2 profile.
 
-As OpenID Connect is not explicitly applicable to Resource Servers, these are left out of scope. As in the original OAuth iGov profile, this profile focuses on a Relying Party also known as a Client.
+As OpenID Connect is not explicitly applicable to Resource Servers, these are 
+left out of scope. As in the original OAuth iGov profile, this profile focuses 
+on a Relying Party also known as a Client.
 
-A Client application wishes to identify *and* authenticate a User. Clients are restricted to web-applications in this version of the profile. Future updates may add support for native applications.
-Next to identification and authentication, a Client may want to receive attributes that are more reliable than self-claimed by the User.
+A Client application wishes to identify *and* authenticate a User. Clients applications 
+are restricted to web applications in this version of the profile. Future updates 
+may add support for native applications.
+Besides identification and authentication, a Client may also want to receive User 
+attributes from the OpenID Provider.
 
 # Flow for identification and authentication
-The flow starts identical to the use case flow of the OAuth2 iGov-NL profile. As with iGov-NL OAuth2, only the authorization code flow is used in this profile.
-Step 1 to 5 of that profile can be applied as-is, with the distinction that the Authorization Request explicitly is an Authentication Request.
+The flow starts identical to the use case flow of the OAuth2 iGov-NL profile. 
+As with iGov-NL OAuth2, only the authorization code flow is supported in this profile.
+Step 1 to 5 of that profile can be applied as-is, with the distinction that the 
+Authorization Request explicitly is an Authentication Request.
 
-Step 6 will result in an Access Token and ID Token. The Access Token can be used in a UserInfo Request or in requests to a Resource Server as in regular OAuth2.
+Step 6 will result in an Access Token and ID Token. The Access Token can be used 
+in a UserInfo Request or in requests to a Resource Server as in regular OAuth2.
 
-In addition to the ID Token, the Client can make a UserInfo Request. This request can be used to obtain additional information about the User.
+In addition to the ID Token, the Client can make a UserInfo Request. This request 
+can be used to obtain additional information about the User.
 
-Step 7 (Oauth2) is optional or implied. The Relying Party (= Client) can use the authentication result directly -- effectively resulting in resource server integrated in the Client -- or can make requests to a Resource Server using the obtained Access Token as in the OAuth2 use case.
+Step 7 (Oauth2) is optional or implied. The Relying Party (the Client) can use the 
+authentication result directly -- effectively resulting in resource server integrated 
+in the Client -- or can make requests to a Resource Server using the obtained Access 
+Token as in the OAuth2 use case.
 
 
 #  1. Introduction
@@ -53,13 +66,14 @@ Step 7 (Oauth2) is optional or implied. The Relying Party (= Client) can use the
 Government regulations for permitting users (citizens and non-citizens) online
 access to government resources vary greatly from region to region. There is a
 strong desire to leverage federated authentication and identity services for
-public access to government resources online to reduce 'password fatigue',
-increase overall account security, reduce costs, and provide reliable identity
-assurances from established and trusted sources when applicable.
+public access to government resources online to improve user experiences, reduce 
+'password fatigue', increase overall account security, reduce costs, and provide 
+reliable identity assurances from established and trusted sources when applicable.
 
-This specification aims to define an OpenID Connect profile that provides
-governments with a foundation for securing federated access to public services
-online.
+This specification aims to define an OpenID Connect profile that provides government 
+organizations and parties working with government organizations in the Netherlands 
+with a foundation for securing federated access to public services online.
+
 **This document is derived from the iGov profile by the OpenID Foundation.**
 
 ##  1.1. Requirements Notation and Conventions
@@ -96,13 +110,13 @@ components:
 
   * Relying party to OpenID Provider
 
-When an iGov-**NL**-compliant component is interacting with other iGov-**NL**-compliant
-components, in any valid combination, all components MUST fully conform to the
-features and requirements of this specification. All interaction with non-iGov-**NL**
+When an iGov-**NL**-compliant party is interacting with other iGov-**NL**-compliant
+party, in any valid combination, all parties MUST fully conform to the features and 
+requirements of this specification. All interaction with non-iGov-**NL**
 components is outside the scope of this specification.
 
-An iGov-**NL**-compliant OpenID Provider MUST support all features as described in
-this specification. A general-purpose OpenID Provider MAY support additional features 
+An iGov-**NL**-compliant OpenID Provider MUST support all required features as described 
+in this specification. A general-purpose OpenID Provider MAY support additional features 
 for use with non-iGov-**NL** clients.
 
 An iGov-**NL**-compliant OpenID Provider MAY also provide iGov-compliant OAuth 2.0
@@ -118,7 +132,7 @@ additional features for use with non-iGov-**NL** IdPs.
 
 #  2. Relying Party Profile
 
-##  2.1. Requests to the Authorization Endpoint (Authentication Request)
+##  2.1. Authentication Request - Requests to the Authorization Endpoint
 
 The iGov-**NL** OAuth2 profile specifies requirements for requests to Authorization
 Endpoints - for example, when to use the PKCE parameters to secure token
@@ -141,36 +155,40 @@ scope
     REQUIRED. Indicates the attributes being requested. (See below) 
 redirect_uri
 
-    REQUIRED. Indicates a valid endpoint where the Client will receive the authentication response. See (core section 3.1.2.1) 
+    REQUIRED. Indicates a valid endpoint where the Client will receive the authentication 
+    response. See (core section 3.1.2.1) 
 state
 
-    REQUIRED. Unguessable random string generated by the RP, used to protect against CSRF attacks. Must contain a sufficient amount of entropy. Returned, unchanged, to the RP in the authentication response. 
+    REQUIRED. Unguessable random string generated by the RP, used to protect against CSRF 
+    attacks. Must contain a sufficient amount of entropy. Returned, unchanged, to the RP 
+    in the authentication response. 
 nonce
 
-    REQUIRED. Unguessable random string generated by the client, used to protect against CSRF attacks. Must contain a sufficient amount of entropy. Returned to the Client in the ID Token. 
+    REQUIRED. Unguessable random string generated by the client, used to protect against 
+    CSRF attacks. Must contain a sufficient amount of entropy. Returned to the Client in 
+    the ID Token. 
 
 acr_values
 
     OPTIONAL. Lists the acceptable LoAs for this authentication. See (below). 
 code_challenge and code_challenge_method
 
-    OPTIONAL. If the PKCE protocol is being used by the client. See OAUTH profile for iGov-**NL**.
+    OPTIONAL. If the PKCE protocol is being used by the client. See OAUTH profile for 
+    iGov-**NL**.
 
 A sample request may look like:
-
-    
-    
-    https://op.government.nl/oidc/authorization.endpoint?
+   
+    https://op.example.com/oidc/authorization.endpoint?
       response_type=code
       &client_id=827937609728-m2mvqffo9bsefh4di90saus4n0diar2h
       &scope=openid+email
-      &redirect_uri=https%3A%2F%2Frp.ministry.nl%2Foidc%2FloginResponse
+      &redirect_uri=https%3A%2F%2Frp.example.com%2Foidc%2FloginResponse
       &state=2ca3359dfbfd0
-	  &nonce=9d3252993a38454c8a6c3a4b86997aaa
+      &nonce=9d3252993a38454c8a6c3a4b86997aaa
       &acr_values=http%3A%2F%2Feidas.europa.eu%2FLoA%2Fsubstantial
     
 
-##  2.2. Requests to the Token Endpoint
+##  2.2. Token Request - Requests to the Token Endpoint
 
 In addition to the requirements specified in Section ~~2.1.2~~ **1.3.1.2 (?)** of the iGov-**NL** OAuth2
 profile, the following parameters MUST be included:
@@ -187,19 +205,26 @@ code
 
 client_assertion_type
 
-	REQUIRED when `private_key_jwt` client authentication method is used. MUST be set to urn:ietf:params:oauth:client-assertion-type:jwt-bearer.
+	REQUIRED when `private_key_jwt` client authentication method is used. MUST be 
+	set to urn:ietf:params:oauth:client-assertion-type:jwt-bearer.
 	
 client_assertion
 
-    REQUIRED when `private_key_jwt` client authentication method is used. The value of the signed client authentication JWT generated as described below. The RP MUST generate a new client_assertion JWT for each call to the token endpoint. 
+    REQUIRED when `private_key_jwt` client authentication method is used. The value of 
+    the signed client authentication JWT generated as described below. The Client MUST  
+    generate a new client_assertion JWT for each call to the token endpoint, JWTs MUST 
+    NOT be reused. 
 
 client_id
 
-    REQUIRED when `tls_client_auth` client authentication method is used. OAuth 2.0 Client Identifier valid at the Authorization Server. 
+    REQUIRED when `tls_client_auth` client authentication method is used. OAuth 2.0 Client 
+    Identifier valid at the Authorization Server. 
 
 code_verifier
 
-    REQUIRED when PKCE protocol was used by the Client in the relevant Authentication Request, the code_verifier MUST be present and the value MUST be the original random code, used to create the hashed challenge in `code_challenge`. 
+    REQUIRED when PKCE protocol was used by the Client in the relevant Authentication Request, 
+    the code_verifier MUST be present and the value MUST be the original random code, used to 
+    create the hashed challenge in `code_challenge`. 
 
 
 ##  2.3. ID Tokens
@@ -274,6 +299,7 @@ The jwks structure MUST include the public key parameters with the same values o
 Authentication of the client using the private_key_jwt client authentication method MUST be supported. tls_client_auth SHOULD also be supported.
 NOTE: the client_secret_jwt method is not considered of equivalent security and the methods client_secret_basic and client_secret_post are obviously less secure. These three methods therefor MUST NOT be used.
 
+* ADD CLIENT ASSERTION JWT HERE * 
 
 
 #  3. OpenID Provider Profile
