@@ -30,18 +30,19 @@ profile for iGov **in the Netherlands ("iGov-NL")**.
 * * *
 
 # Use case
+
+As in the original OAuth iGov profile, this profile focuses on a Relying Party 
+also known as a Client. As OpenID Connect is not explicitly applicable to 
+Resource Servers, they are left out of scope. 
+
 The generic use case where this profile can be applied, is very similar to the 
 use case for the iGov-NL OAuth2 profile.
 
-As OpenID Connect is not explicitly applicable to Resource Servers, these are 
-left out of scope. As in the original OAuth iGov profile, this profile focuses 
-on a Relying Party also known as a Client.
+_A Client application wishes to identify *and* authenticate a User and may also 
+want to receive User attributes from a trusted party._
 
-A Client application wishes to identify *and* authenticate a User. Clients applications 
-are restricted to web applications in this version of the profile. Future updates 
-may add support for native applications.
-Besides identification and authentication, a Client may also want to receive User 
-attributes from the OpenID Provider.
+Client applications are restricted to web applications in this version of the 
+profile. Future updates may add support for native applications.
 
 # Flow for identification and authentication
 The flow starts identical to the use case flow of the OAuth2 iGov-NL profile. 
@@ -110,7 +111,7 @@ components:
 
   * Relying party to OpenID Provider
 
-When an iGov-**NL**-compliant party is interacting with other iGov-**NL**-compliant
+When an iGov-**NL**-compliant party is interacting with another iGov-**NL**-compliant
 party, in any valid combination, all parties MUST fully conform to the features and 
 requirements of this specification. All interaction with non-iGov-**NL**
 components is outside the scope of this specification.
@@ -187,6 +188,26 @@ A sample request may look like:
       &nonce=9d3252993a38454c8a6c3a4b86997aaa
       &acr_values=http%3A%2F%2Feidas.europa.eu%2FLoA%2Fsubstantial
     
+###  2.1.1. Request Objects
+
+Clients MAY optionally send requests to the authorization endpoint in JWT form
+as defined by OpenID Connect, instead of http request parameters. 
+Clients MAY send request objects either by value, in a http request parameter 
+named `request` or by reference using the `request_uri` http request parameter.
+
+Request objects MUST be signed by the client's registered key. Request objects
+MAY be encrypted to the OpenID Provider's public key.
+
+All iGov-NL comformant OpenID Providers MUST support signed request objects passed
+by value at minimum and SHOULD also support request objects passed by reference.
+
+**iGov-NL**
+
+In case request objects using pass by reference are used, the `request_uri` parameter value MUST be pre-registered. The URI MUST be using either a URN or an absolute HTTPS URI, and MUST contain a sufficient amount of entropy to avoid guessing.
+To avoid attacks by `request_uri` manipulation, the base value of the URI MUST be registered prior to usage and SHOULD be unambiguously distinct from other URIs in use. Since the `request_uri` should at the same time differ for each unique request due to caching considerations, a HTTPS URI MUST use a parameter identifying the request object.
+The `request_uri` value MUST be reachable or retrievable by the OP. The server hosting the `request_uri` MAY require authentication of the OP.
+
+**/iGov-NL**
 
 ##  2.2. Token Request - Requests to the Token Endpoint
 
@@ -206,7 +227,7 @@ code
 client_assertion_type
 
 	REQUIRED when `private_key_jwt` client authentication method is used. MUST be 
-	set to urn:ietf:params:oauth:client-assertion-type:jwt-bearer.
+	set to `urn:ietf:params:oauth:client-assertion-type:jwt-bearer`.
 	
 client_assertion
 
@@ -231,23 +252,23 @@ code_verifier
 
 All clients MUST validate the signature of an ID Token before accepting it
 using the public key of the issuing server, which is published in JSON Web Key
-(JWK) format. ID Tokens MAY be encrypted using the appropriate key of the
+(JWK) format. ID Tokens SHOULD be encrypted using the appropriate key of the
 requesting client.
 
 Clients MUST verify the following in received ID tokens:
 
 iss
 
-    The "issuer" field is the Uniform Resource Locator (URL) of the issuer 
+    The "issuer" URL of the OpenID Provider. 
 aud
 
     The "audience" field contains the client ID of the Relying Party. Clients MUST 
-    validate they are listed as audience for this ID token.
+    validate that they are listed as an audience for ID tokens they process.
 exp, iat, nbf
 
     The "expiration", "issued at", and "not before" timestamps for the token are dates 
     (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable 
-    ranges 
+    ranges.
 	
 nonce
 
@@ -262,53 +283,55 @@ acr
 
 
 
-##  2.4. Request Objects
+##  2.4. OpenID Provider Discovery
 
-Clients MAY optionally send requests to the authorization endpoint using the
-request parameter as defined by OpenID Connect. Clients MAY send requests to
-the authorization endpoint by reference using the request_uri parameter.
+Clients can use openid configuration published by OpenID Providers to obtain information 
+about OpenID Provider configurations. 
 
-Request objects MUST be signed by the client's registered key. Request objects
-MAY be encrypted to the authorization server's public key.
+Clients and protected resources SHOULD cache OpenID Provider metadata, for a period 
+determined by OpenID Provider configuration such as http headers or OpenID Provider policy, 
+once an OP has been discovered and used by the client.
 
-**iGov-NL**
 
-In case request objects using pass by reference are used, the `request_uri` parameter value MUST be pre-registered. The URI MUST be using either a URN or an absolute HTTPS URI, and MUST contain a sufficient amount of entropy to avoid guessing.
-To avoid attacks by `request_uri` manipulation, the base value of the URI MUST be registered prior to usage and SHOULD be unambiguously distinct from other URIs in use. Since the `request_uri` should at the same time differ for each unique request due to caching considerations, a HTTPS URI MUST use a parameter identifying the request object.
-The `request_uri` value MUST be reachable or retrievable by the OP. The server hosting the `request_uri` MAY require authentication of the OP.
+## 2.5 Client Registration
 
-**/iGov-NL**
+Clients SHOULD be able to perform dynamic registration. If dynamic registration is not 
+supported, it is up to the discretion of the OpenID Provider whether and up to what level 
+of detail an alternative process is provided.
+Pre-conditions to registration of Clients with the OpenID Provider MAY be applicable, for 
+various reasons such as organizational, legal, administrative, policy, security or 
+technical reasons. Any such pre-conditions are out of scope of this profile.
 
-##  2.5. Discovery
+Clients MUST be registered using the name of the responsible Service Provider and not any 
+intermediary or supplier related names. The name MUST be familiar and MUST be clearly shown 
+to the User both at the RP's website and at the OP.
 
-Clients and protected resources SHOULD cache OpenID Provider metadata once an
-OP has been discovered and used by the client.
-
-**iGov-NL**
-
-## 2.6 Client Registration
-
-Clients SHOULD be able to perform dynamic registration. If dynamic registration is not supported, it is up to the discretion of the OP whether and up to what level of detail an alternative process is provided.
-Pre-conditions to registration of Clients with the OP MAY be applicable, for various reasons such as organizational, legal, administrative, policy, security or technical reasons. Any such pre-conditions are out of scope of this profile.
-
-Clients MUST be registered using the name of the responsible Service Provider and not any intermediary or supplier related names. The name MUST be familiar and MUST be clearly and visibly shown to the User both at the RP's website and at the OP.
-
-### PKIoverheid
-In case the Relying Party and OpenID Provider are not operated under responsibility of the same organization, each party MUST use PKIoverheid certificates with OIN.
+### 2.5.1 PKIoverheid
+In case the Relying Party and OpenID Provider are not operated under responsibility of the 
+same organization, each party MUST use PKIoverheid certificates with OIN.
 
 PKIoverheid certificates MUST be included as <code>x5c</code> parameters in client JWKs.
-The <code>x5c</code> parameter MUST be included as a list (array) of X509 certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
-The first certificate MUST be the Client's certificate, optionally followed by the rest of that certificate's chain.
-The jwks structure MUST include the public key parameters with the same values of the corresponding X509 certificate included as <code>x5c</code>, as per [RFC7517] §4.7.
+The <code>x5c</code> parameter MUST be included as a list (array) of X509 certificate(s), 
+as Base64 DER encoded PKIoverheid certificate(s).
+The first certificate MUST be the Client's certificate, optionally followed by the rest of 
+that certificate's chain.
+The jwks structure MUST include the public key parameters with the same values of the 
+corresponding X509 certificate included as <code>x5c</code>, as per [RFC7517] §4.7.
 
-## 2.7 Client Authentication
+## 2.6 Client Authentication
 
-Authentication of the client using the private_key_jwt client authentication method MUST be supported. tls_client_auth SHOULD also be supported.
-NOTE: the client_secret_jwt method is not considered of equivalent security and the methods client_secret_basic and client_secret_post are obviously less secure. These three methods therefor MUST NOT be used.
+Authentication of the client using the private_key_jwt client authentication method MUST be 
+supported by OpenID Providers. tls_client_auth method MAY also be supported by OpenID Providers.
 
-### 2.7.1 Private key JWT
+NOTE: the client_secret_jwt method is not considered of equivalent security and the methods 
+client_secret_basic and client_secret_post are obviously less secure. These three methods 
+MUST NOT be used.
 
-A client can authenticate using private_key_jwt, by generating a JWT with contents as specified below and signing it with its private key. This method is specified in OIDC, https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication.
+### 2.6.1 Private key JWT
+
+A client can authenticate using private_key_jwt, by generating a JWT with contents as 
+specified below and signing it with its private key. This method is specified in OIDC, 
+https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication.
 
 The JWT MUST contain the following:
 
@@ -359,50 +382,55 @@ ID Tokens MAY be encrypted using the appropriate key of the requesting client.
 The OpenID Provider MUST support the RS256 signature algorithm (RSA signature 
 algorithm with a 256-bit hash) and SHOULD support using the PS256 
 (RSASSA-PSS using SHA-256 and MGF1 with SHA-256) and MAY use other asymmetric
-signature and encryption algorithms listed in the JSON Web Algorithms (JWA)
-specification.
+signature and encryption algorithms, which provide equivalent or stronger 
+security, listed in the JSON Web Algorithms (JWA) specification.
 
-The ID Token MUST expire and SHOULD have an active lifetime no longer than
+ID Tokens MUST expire and SHOULD have an active lifetime no longer than
 five minutes. Since the ID token is consumed by the client and not presented
 to remote systems, much shorter expiration times are RECOMMENDED where
 possible.
 
-The token response includes an access token (which can be used to make a
-UserInfo request) and ID token (a signed and optionally encrypted JSON Web
-Token). ID Token values have the following meanings:
+ID Tokens contain the following claims at minimum and MAY contain other claims:
 
 iss
 
-    REQUIRED. The "issuer" field is the Uniform Resource Locator (URL) of the OpenID Provider. 
+    REQUIRED. The "issuer" URL of the OpenID Provider. 
 aud
 
     REQUIRED. The "audience" field contains the client ID of the Relying Party. 
 sub
 
-    REQUIRED. The identifier of the user.  
+    REQUIRED. The user identifier, subject.  
 
 acr
 
-    OPTIONAL. The LoA the user was authenticated at. MUST be a member of the acr_values list from the authentication request **or that was agreed upon through other means**. 
+    OPTIONAL. The LoA the user was authenticated at. MUST be a member of the 
+    acr_values list from the authentication request **or that was agreed upon 
+    through other means**. 
     
 nonce
 
-    REQUIRED. MUST match the nonce value that was provided in the authentication request. 
+    REQUIRED. MUST match the nonce value that was provided in the authentication 
+    request. 
 jti
 
-    REQUIRED. A unique identifier for the token, which can be used to prevent reuse of the token. 
+    REQUIRED. A unique identifier for the token, which can be used to prevent reuse 
+    of the token. 
 auth_time
 
-    RECOMMENDED. This SHOULD be included if the OpenID Provider can assert an end-user's authentication intent was demonstrated. For example, a login event where the user took some action to authenticate. 
+    RECOMMENDED. SHOULD be included if the OpenID Provider can assert an end-user's 
+    authentication intent was demonstrated. For example, a login event where the user 
+    took some action to authenticate. 
 exp, iat, nbf
 
-    REQUIRED. The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges. 
+    REQUIRED. The "expiration", "issued at", and "not before" timestamps for the token 
+    are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within 
+    acceptable ranges. 
 
 This example ID token has been signed using the server's RSA key:
-
     
     
-    eyJhbGciOiJSUzI1NiJ9.eyJhdXRoX3RpbWUiOjE0
+            eyJhbGciOiJSUzI1NiJ9.eyJhdXRoX3RpbWUiOjE0
             MTg2OTg3ODIsImV4cCI6MTQxODY5OTQxMiwic3ViI
             joiNldaUVBwblF4ViIsIm5vbmNlIjoiMTg4NjM3Yj
             NhZjE0YSIsImF1ZCI6WyJjMWJjODRlNC00N2VlLTR
@@ -422,20 +450,20 @@ Its claims are as follows:
 
     
     
-     {
-            "iss": "https://idp-p.example.com/",
-            "aud": [
-              "c1bc84e4-47ee-4b64-bb52-5cda6c81f788"
-            ],
-            "sub": "6WZQPpnQxV",
-            "nonce": "188637b3af14a",
-            "acr":"http://eidas.europa.eu/LoA/substantial",
-            "auth_time": 1418698782,
-            "iat": 1418698812,
-	        "nbf": 1418698812,
-            "exp": 1418699412,
-			"jti": "b42e57f8-4cfa-474a-afed-f0e9a77880c9"
-            }
+    {
+        "iss": "https://idp-p.example.com/",
+        "aud": [
+               "c1bc84e4-47ee-4b64-bb52-5cda6c81f788"
+               ],
+        "sub": "6WZQPpnQxV",
+        "nonce": "188637b3af14a",
+        "acr":"http://eidas.europa.eu/LoA/substantial",
+        "auth_time": 1418698782,        
+	"iat": 1418698812,        
+	"nbf": 1418698812,
+        "exp": 1418699412,
+        "jti": "b42e57f8-4cfa-474a-afed-f0e9a77880c9"
+    }
             
 
 ##  3.2. Identifier Types
@@ -452,12 +480,14 @@ identifiers SHOULD be used. Such subject identifiers can be either public
 or pairwise, depending on the identifier and use case. An OP conforming to
 this profile SHOULD support public identifiers.
 
+It is expected that the sub claim will remain pseudonymous in use cases 
+where obtaining personal information is not needed.
+
 
 ##  3.3. UserInfo Endpoint
 
 OpenID Providers MUST support the UserInfo Endpoint and, at a minimum, the sub
-claim. It is expected that the sub claim will remain pseudonymous in use cases 
-where obtaining personal information is not needed.
+claim. 
 
 Support for a UserInfo Endpoint is important for maximum client implementation
 interoperability even if no additional user information is returned. Clients
@@ -508,18 +538,18 @@ And receives a document in response like the following:
 OpenID Providers SHOULD support the generation of JWT encoded responses from the
 UserInfo Endpoint in addition to unsigned JSON objects. Signed responses MUST
 be signed by the OpenID Provider's key, and encrypted responses MUST be
-encrypted with the authorized client's public key. The OpenID Provider MUST
+encrypted with the authorized Client's public key. The OpenID Provider MUST
 support the RS256 signature algorithm (RSA signature algorithm with a 256-bit hash) 
 and SHOULD support using the PS256 (RSASSA-PSS using SHA-256 and MGF1 with SHA-256) 
-and MAY use other asymmetric signature and encryption algorithms listed in the JSON 
-Web Algorithms (JWA) specification.
+and MAY use other asymmetric signature and encryption algorithms, which provide 
+equivalent or better security, listed in the JSON Web Algorithms (JWA) specification.
 
 
 ##  3.4. Request Objects
 
 OpenID Providers MUST accept requests containing a signed `request` parameter, 
 signed by the Client's private key. OpenID Providers MUST validate the 
-signature on signed request objects against the client's registered public key. 
+signature on signed request objects against the Client's registered public key. 
 OpenID Providers SHOULD accept request objects encrypted with the server's 
 public key.
 
@@ -529,14 +559,20 @@ parameter.
 Both of these methods allow for clients to create a request that is protected
 from tampering through the browser, allowing for a higher security mode of
 operation for clients and applications that require it. Clients are not
-required to use request objects, but OpenID Providers MUST support
-signed request objects passed by value at minimum.
+required to use request objects. 
+
+OpenID Providers MUST support signed request objects passed by value and MAY 
+support other encryption and parameter combinations.
 
 **iGov-NL**
 
-In case request objects using pass by reference are used, the `request_uri` parameter value MUST be pre-registered. The URI MUST be using either a URN or an absolute HTTPS URI and MUST contain a sufficient amount of entropy to avoid guessing.
-To avoid attacks by `request_uri` manipulation, the base value of the URI MUST be registered prior to usage and SHOULD be unambiguously distinct from other URIs in use.
-The `request_uri` value MUST be reachable or retrievable by the OP. The OP MUST support authenticating to the server hosting the `request_uri`.
+In case request objects using pass by reference are used, the `request_uri` parameter 
+value MUST be pre-registered. The URI MUST be using either a URN or an absolute HTTPS 
+URI and MUST contain a sufficient amount of entropy to avoid guessing.
+To avoid attacks by `request_uri` manipulation, the base value of the URI MUST be 
+registered prior to usage and SHOULD be unambiguously distinct from other URIs in use.
+The `request_uri` value MUST be reachable or retrievable by the OP. The OP MUST support 
+authenticating to the server hosting the `request_uri`.
 
 **/iGov-NL**
 
@@ -584,25 +620,25 @@ issuer
 authorization_endpoint
 
     REQUIRED. The fully qualified URL of the OpenID Provider's authorization endpoint 
-    defined by [RFC6749]. 
+    as defined by [RFC6749]. 
 token_endpoint
 
-    REQUIRED. The fully qualified URL of the server's token endpoint defined by 
+    REQUIRED. The fully qualified URL of the server's token endpoint as defined by 
     [RFC6749]. 
 
 userinfo_endpoint
 
-    REQUIRED. The fully qualified URL of the server's user info endpoint defined by 
+    REQUIRED. The fully qualified URL of the server's user info endpoint as defined by 
     [OpenID.Discovery].
 
 
 introspection_endpoint
 
-    OPTIONAL. The fully qualified URL of the server's introspection endpoint defined by 
+    OPTIONAL. The fully qualified URL of the server's introspection endpoint as defined by 
     OAuth Token Introspection. 
 revocation_endpoint
 
-    OPTIONAL. The fully qualified URL of the server's revocation endpoint defined by 
+    OPTIONAL. The fully qualified URL of the server's revocation endpoint as defined by 
     OAuth Token Revocation. 
 jwks_uri
 
@@ -615,7 +651,7 @@ scopes_supported
     can be provided if it is not possible to provide a list of all supported scopes. 
 response_types_supported
 
-    REQUIRED. MUST be set to code, since only authorization code flow is supported by 
+    REQUIRED. MUST only contain `code`, since only authorization code flow is supported by 
     this profile.
 claims_supported
 
@@ -624,7 +660,7 @@ claims_supported
     can be provided if it is not possible to provide a list of all claims scopes. 
 
 
-acr_values_**supported**
+acr_values_supported
 
     OPTIONAL. The acr values supported. 
 
@@ -720,24 +756,8 @@ It is RECOMMENDED that servers provide cache information through HTTP headers
 and make the cache valid for at least one week.
 
 
-**iGov-NL**
 
-### PKIoverheid
-In case the Relying Party and the OpenID Provider are not operated under 
-responsibility of the same organization, each party MUST use PKIoverheid 
-certificates with OIN.
-
-The PKIoverheid certificate MUST be included as a <code>x5c</code> parameter.
-The <code>x5c</code> parameter MUST be included as a list (array) of X509 
-certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
-The first certificate MUST be the Client's certificate, optionally followed 
-by the rest of that certificate's chain.
-The jwks structure MUST include the public key parameters with the same values
-of the corresponding X509 certificate included as <code>x5c</code>, as per 
-[RFC7517] §4.7.
-
-**/iGov-NL**
-
+### 3.6.1. JWKS 
 The server MUST provide its public key in JWK Set format, such as the
 following 2048-bit RSA key:
 
@@ -756,44 +776,60 @@ following 2048-bit RSA key:
                 fCaPDNp00J6AbY6w",
           "kty": "RSA",
           "kid": "rsa1",
-		  "x5c": "MIIFdDCCA1ygAwIBAgIEAJiiOTANBgkqhkiG9w0BAQsFADBaMQswCQYDVQQGEwJO
-			      ...
-				  QFH1T/U67cjF68IeHRaVesd+QnGTbksVtzDfqu1XhUisHWrdOWnk4Xl4vs4Fv6EM
-				  94B7IWcnMFk="
+		  "x5c": "MIIFdDCCA1ygAwIBAgIEAJiiOTANBgkqhkiG9w0BAQsFA                
+		          ...
+		          QFH1T/U67cjF68IeHRaVesd+QnGTbksVtzDfqu1XhUisH
+		          94B7IWcnMFk="
         }
       ]
     }
-    
 
-##  3.8. Dynamic Client Registration
+#### 3.6.1.1. PKIoverheid
+In case the Relying Party and the OpenID Provider are not operated under 
+responsibility of the same organization, each party MUST use PKIoverheid 
+certificates with OIN.
+
+The PKIoverheid certificate MUST be included as a <code>x5c</code> parameter.
+The <code>x5c</code> parameter MUST be included as a list (array) of X509 
+certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
+The first certificate MUST be the Client's certificate, optionally followed 
+by the rest of that certificate's chain.
+The jwks structure MUST include the public key parameters with the same values
+of the corresponding X509 certificate included as <code>x5c</code>, as per 
+[RFC7517] §4.7.
+
+##  3.7. Dynamic Client Registration
 
 If the OpenID Provider is acting as an iGov-**NL** OAuth Authorization Server (iGov-**NL** OAuth2
 profile) and if Dynamic Client Registration is supported, then Dynamic 
 Client Registration MUST be supported in accordance with that
 specification (see section ~~3.13~~ **1.4.1.3**).
 
+##  3.8. Client Authentication
+
+OpenID Providers MUST support private_key_jwt and SHOULD support tls_client_auth. 
+
 #  4. User Info
 
 The availability, quality, and reliability of a subject's attributes will vary 
 greatly across jurisdictions and OpenID Provider systems. The following 
-recommendations ensure maximum cross-jurisdictional interoperability, 
-while setting Client expectations on the type of data they may acquire.
+recommendations aims to ensure maximum interoperability, while setting Client 
+expectations on the type of data they may acquire.
 
 ##  4.1. Claims Supported
 
 Discovery mandates the inclusion of the claims_supported field that defines
-the claims a client MAY expect to receive for the supported scopes. OpenID
-Providers MUST return claims on a best effort basis. However, an OpenID 
-Provider asserting it can provide a claim does not imply that this data is
-available to all clients: clients MUST be prepared to receive partial data.
+the claims a client MAY expect to receive for the supported scopes. However, 
+an OpenID Provider asserting it can provide a claim does not imply that this 
+data is available to all clients at all times. Clients MUST be able to handle
+cases where they don't receive all claims they requested or expected.
 
-OpenID Providers MAY return claims outside of the claims_supported list, 
-but they MUST still ensure that the extra claims to not violate the privacy 
-policies.
+OpenID Providers MAY return claims outside of the claims_supported list, but 
+they MUST ensure that the extra claims do not violate applicable privacy policies.
 
 ##  4.2. Scopes
 
-In the interests of data minimization balanced with the requirement to
+In the interests of data minimization, balanced with the requirement to
 successfully identify the individual signing in to a service, using the 
 default OpenID Connect scopes and standard claims may not be appropriate.
 
@@ -803,53 +839,44 @@ OpenID Providers are not required to support any standard scopes, defined in
 OpenID.Core other than openid.
 
 
-**iGov-NL**
-
-As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is discouraged in the iGov-NL profile. Usage of the `doc` claims in the Netherlands is NOT RECOMMENDED.
-
-**/iGov-NL**
-
-
 ##  4.3. Claims Request
 
 OpenID.Core section 5.5 defines a method for a client to request specific
 claims. OpenID Providers SHOULD support this claims parameter in the interest 
 of data minimization - that is, the OpenID Provider only
 returns information on the subject the client specifically asks for, and does
-not volunteer additon**i**al information about the subject.
+not volunteer additional information about the subject.
 
 OpenID Providers not supporting the claims parameter MUST also ensure that 
-only a minimal, allowed for the Client by OpenID Provider policy,
-and consented by the end user, set of claims are provided to Clients.
+only a minimal, allowed for the Client by OpenID Provider policy, and consented 
+by the End-User, set of claims are provided to Clients.
 
 
-##  4.4. Claims Response
+##  4.4. UserInfo Response
 
-Response to a UserInfo request MUST match the scope and/or claims requested to
-avoid having a OpenID Provider over-expose a user's identity information.
+Response to a UserInfo request MUST match the scope and/or claims requested. 
+OpenID Providers MUST ensure that excessive information is not provided.
 
 
 #  5. Privacy Considerations
 
 Data minimization is an essential concept in trust frameworks and federations
-exchanging user identity information for government applications. The design
-of this specification takes into consideration mechanisms to protect the
-user's government identity information and activity from unintentional
-exposure.
+exchanging user identity information for government applications. This specification 
+takes into consideration mechanisms to protect the user's government identity 
+information and activity from unintentional exposure.
 
-All parties implementing this specification MUST ensure that due care is 
-taken to protect user privacy.
+All parties implementing this specification MUST ensure that due care is taken 
+to protect user privacy.
 
 Pairwise anonymous identifiers MAY be supported by the OpenID Providers for
-frameworks where subjects should not be traceable across clients by their
-subject ID. This prevents a situation where a user may inadvertently be
-assigned a universal government identifier.
+cases where subjects should not be traceable across clients by their subject 
+identifiers. This prevents a situation where a user may inadvertently be assigned 
+a universal government identifier.
 
 
 #  6. Security Considerations
 
 All transactions MUST be protected in transit by TLS as described in BCP195.
-
 
 In addition to the Best Current Practice for TLS, it is RECOMMENDED for all 
 conforming implementations to incorporate the TLS guidelines from the Dutch 
