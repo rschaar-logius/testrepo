@@ -970,5 +970,7 @@ Model and Security Considerations document.
 
 # Appendix A. Future updates
 
-## client authentication using mutual TLS
-Instead of, or in addition to, the `private_key_jwt` client authentication method, mutual TLS may be used. This currently is specified in draft by IETF, see https://tools.ietf.org/html/draft-ietf-oauth-mtls-08.
+The following updates are foreseen to be made in future updates to this profile. These are not yet part of the profile.
+
+## Client Authentication using Mutual TLS
+Instead of, or in addition to, the `private_key_jwt` client authentication method, mutual authenticated TLS MAY be used. This currently is specified in draft by IETF, see https://tools.ietf.org/html/draft-ietf-oauth-mtls-13.
