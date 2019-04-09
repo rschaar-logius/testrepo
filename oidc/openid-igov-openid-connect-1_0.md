@@ -24,6 +24,11 @@ profile for iGov **in the Netherlands ("iGov-NL")**.
 
 **iGov-NL**
 
+# Dutch government Assurance profile for OAuth 2.0  
+This profile is based upon the international government assurance profile for OpenID Connect (iGov) [[iGOV.OIDC]] as published by the OpenID Foundation (https://openid.net/foundation/). It should be considered a fork of this profile as the iGov profile is geared more towards the American situtation and in the Netherlands we have to deal with an European Union and specific Dutch context. 
+
+We have added the chapter [Usecases](#Usecases) to illustrate the specific usecase the iGov-NL profile is aimed at. Starting with chapter [Introduction](#Introduction) we follow the structure of the iGov profile. Where we do not use content from iGov we use ~~strikethrough~~ to indicate it is not part of iGov-NL. Where we have added more specific requirements for the Dutch situation this is indicated with **iGov-NL** tags or **bold** for minor changes.
+
 # Use case
 The generic use case where this profile can be applied, is very similar to the use case for the iGov-NL OAuth2 profile. A Client application wishes to identify _and authenticate_ a User. Authenticating the User is in addition to the use case for the OAuth2 iGov profile.
 
