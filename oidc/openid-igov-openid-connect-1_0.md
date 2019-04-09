@@ -112,9 +112,9 @@ authorization server functionality. In such cases, the authorization server
 MUST fully implement the OAuth 2.0 iGov-**NL** profile. If an iGov-compliant OpenID
 ~~Connect IdP~~ **Provider** does not provide iGov-compliant OAuth 2.0 authorization server
 services, all features related to interaction between the authorization server
-and protected resource are therefore OPTIONAL.
+and protected resource**s** are therefore OPTIONAL.
 
-An iGov-**NL**-compliant OpenID Connect client MUST use all functions as described in
+An iGov-**NL**-compliant OpenID Connect client MUST ~~use~~ **implement** all ~~functions~~ **requirements** as described in
 this specification. A general-purpose client library MAY support additional
 features for use with non-iGov-**NL** IdPs.
 
@@ -128,7 +128,7 @@ exchange.
 
 In addition to the requirements specified in Section ~~2.1.1~~ **1.3.1.1 (?)** of the iGov-**NL** OAuth2
 profile, the following describes the supported OpenID Connect Authorization
-Code Flow parameters for use with iGov-**NL** compatible IdPs.
+Code Flow parameters for use with iGov-**NL** compatible ~~IdPs~~ **OpenID Providers**.
 
 Request Parameters:
 
@@ -191,7 +191,7 @@ A sample request may look like:
 ##  2.2. Requests to the Token Endpoint
 
 In addition to the requirements specified in Section ~~2.1.2~~ **1.3.1.2 (?)** of the iGov-**NL** OAuth2
-profile, the following claims MUST be included:
+profile, the following ~~claims~~ **parameters** MUST be included:
 
 The following parameters are specified:
 
@@ -565,10 +565,10 @@ As Europe has standardized on level-of-assurance (LoA) policies under eIDAS, the
 
 ##  3.7. Discovery
 
-OpenID Connect Discovery standard provides a standard, program**m**atic way for
+OpenID Connect Discovery ~~standard~~ **specifications** provides a standard, program**m**atic way for
 clients to obtain configuration details for communicating with OpenID
 Providers. Discovery is an important part of building scalable federation
-ecosystsems.
+ecosyst~~s~~ems.
 
 Exposing a Discovery endpoint does NOT inherently put the OpenID Provider at
 risk to attack. Endpoints and parameters specified in the Discovery document
@@ -576,8 +576,8 @@ SHOULD be considered public information regardless of the existence of the
 Discovery document.
 
 Access to the Discovery document MAY be protected with existing web
-authentication methods if required by the Provider. Credentials for the
-Discovery document are then managed by the Provider. Support for these
+authentication methods if required by the **OpenID** Provider. Credentials for the
+Discovery document are then managed by the **OpenID** Provider. Support for these
 authentication methods is outside the scope of this specification.
 
 Endpoints described in the Discovery document MUST be secured in accordance
@@ -586,7 +586,7 @@ support.
 
 All OpenID Providers are uniquely identified by a URL known as the issuer.
 This URL serves as the prefix of a service discovery endpoint as specified in
-the OpenID Connect Discovery standard. The discovery document MUST contain at
+the OpenID Connect Discovery ~~standard~~ **specification**. The discovery document MUST contain at
 minimum the following fields:
 
 issuer
@@ -646,7 +646,7 @@ require_request_uri_registration
 
 
 The following example shows the JSON document found at a discovery endpoint
-for an authorization server:
+for an ~~authorization server~~ **OpenID Provider**:
 
     
     
