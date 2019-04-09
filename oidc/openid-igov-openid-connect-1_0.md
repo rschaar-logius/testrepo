@@ -1,7 +1,6 @@
 # TODO
  * steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
- * explicit access token is JWT, as per OAuth2 iGov-NL?
 
 # NOTES
  * Note: original iGov example are inconsistent or even invalid
