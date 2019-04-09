@@ -334,7 +334,7 @@ sub
 
 **iGov-NL**
 
-`vot` and `vtm` are not actively used in the iGov-NL profile, as Europe uses level-of-assurance (LoA) policies which fit best in acr.
+`vot` and `vtm` are not actively used in the iGov-NL profile, as Europe uses level-of-assurance (LoA) policies which fit best in `acr`.
 
 **/iGov-NL**
 
