@@ -241,17 +241,24 @@ iss
     The "issuer" field is the Uniform Resource Locator (URL) of the issuer 
 aud
 
-    The "audience" field contains the client ID of the Relying Party. Clients MUST validate they are listed as audience for this ID token.
+    The "audience" field contains the client ID of the Relying Party. Clients MUST 
+    validate they are listed as audience for this ID token.
 exp, iat, nbf
 
-    The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges 
+    The "expiration", "issued at", and "not before" timestamps for the token are dates 
+    (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable 
+    ranges 
 	
 nonce
 
-    The "nonce" field MUST be used by Clients to detect/prevent CSRF, replay and other attacks and Clients MUST verify that the nonce Claim Value is equal to the value of the nonce parameter sent in the Authentication Request.
+    The "nonce" field MUST be used by Clients to detect/prevent CSRF, replay and other 
+    attacks and Clients MUST verify that the nonce Claim Value is equal to the value of 
+    the nonce parameter sent in the Authentication Request.
 acr
 
-    Clients MUST validate the authentication context class reference, if present, satisfies the minimum required before authorizing access to any resource or performing any operation on behalf of the identified subject.
+    Clients MUST validate the authentication context class reference, if present, satisfies 
+    the minimum required before authorizing access to any resource or performing any 
+    operation on behalf of the identified subject.
 
 
 
@@ -299,7 +306,48 @@ The jwks structure MUST include the public key parameters with the same values o
 Authentication of the client using the private_key_jwt client authentication method MUST be supported. tls_client_auth SHOULD also be supported.
 NOTE: the client_secret_jwt method is not considered of equivalent security and the methods client_secret_basic and client_secret_post are obviously less secure. These three methods therefor MUST NOT be used.
 
-* ADD CLIENT ASSERTION JWT HERE * 
+### 2.7.1 Private key JWT
+
+A client can authenticate using private_key_jwt, by generating a JWT with contents as specified below and signing it with its private key. This method is specified in OIDC, https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication.
+
+The JWT MUST contain the following:
+
+iss
+
+    REQUIRED. MUST contain the Client id.
+    
+sub
+
+    REQUIRED. MUST contain the Client id.
+aud
+
+    REQUIRED. Issuer URL for the OpenID Provider.
+
+jti
+
+    REQUIRED. JWT id. MUST be unique and MUST NOT be reused. 
+    
+exp
+
+    REQUIRED. Expiration time on or after which the JWT MUST NOT be accepted for processing.
+iat
+
+    REQUIRED. Time at which the JWT was issued.
+    
+An non-normative, example Token Request using private_key_jwt client authentication:
+
+	grant_type=authorization_code&
+	code=AzNx2xXGF5Tq6j4swOUY4T1kh4utXPBfMwRoGVMd&
+	redirect_uri=https%3A%2F%2Flocalhost%3A8443%2Ftest%2Fa%2Fpkjwt_2_signedreq%2Fcallback&
+	client_assertion=eyJraWQiOiJwa2p3dF8xX2sxIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJwa2p3dF8yX3
+	NpZ25lZHJlcSIsImF1ZCI6Imh0dHBzOlwvXC8xOTIuMTY4LjEwMS4xMzA6OTAzMVwvYXNcL3Rva2VuLm9hdXRo
+	MiIsImlzcyI6InBrand0XzJfc2lnbmVkcmVxIiwiZXhwIjoxNTQ0NDUwNTc3LCJpYXQiOjE1NDQ0NTA1MTcsIm
+	p0aSI6ImpnYWl1ZUtLZnBvdjBsSUprWHp6In0.bAcg3hXoTQvEkE8QBVpecFqkxTLtPqPgti5IKhmWkQD8bbQb
+	WFnVM_xepD_VttWxQataNtRPnuE_9QUO8B72uPPgEDE0u4aGt3UiApX_jzCxdO6MuZAYU8OpVYIaZDCAjQl-XR
+	ZBz_LiVLo-JlwyEKI8w4tLqntLoi5myO0EK3OuMpIHnCumEersiACN1mu86sBmWhl4bFIJWpBiL17D2e7wRsTV
+	cIzuwFsQJFk-KOBP3yh2x9QYdwlbMJt6kZTF0_8cqSDA_A8pQoO9w7MySP6YbEW4A_rb-VLFHEX3gTJ4ztTCKd
+	81vL3iIgqeBO37WFL7uqI9PFxlRg635GBVfA&
+	client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer
 
 
 #  3. OpenID Provider Profile
