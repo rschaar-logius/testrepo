@@ -198,7 +198,9 @@ code
     The value of the code parameter returned in the authorization response.
 
 **iGov-NL**
+
 In case the authentication method `private_key_jwt` is used, `client_assertion` and `client_assertion_type` MUST be used.
+
 **/iGov-NL**
 
 client_assertion_type
@@ -209,11 +211,13 @@ client_assertion
     The value of the signed client authentication JWT generated as described below. The RP must generate a new assertion JWT for each call to the token endpoint. 
 
 **iGov-NL**
+
 In case the PKCE protocol was used by the Client in the relevant Authentication Request, the `code_verifier` element MUST be included.
 
 code_verifier
 
     OPTIONAL. If the PKCE protocol was used by the Client in the relevant Authentication Request, the code_verifier MUST be present and the value MUST be the original random code, used to create the hashed challenge in `code_challenge`.
+
 **/iGov-NL**
 
 ##  2.3. ID Tokens
@@ -551,7 +555,9 @@ same name) and amr (authentication methods reference) values in ID tokens only
 if vtr is not used.
 
 **iGov-NL**
+
 As Europe has standardized on level-of-assurance (LoA) policies under eIDAS, the `acr` element is RECOMMENDED to be used. Valid values vary depending on context, use case and OpenID Providers in use. RECOMMENDED is to apply the three eIDAS LoAs (low, substantial and high), using the respective URIs defined by eIDAS as values.
+
 **/iGov-NL**
 
 
