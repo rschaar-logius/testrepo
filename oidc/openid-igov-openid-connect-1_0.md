@@ -340,10 +340,10 @@ sub
 
 vot
 
-OPTIONAL. The vector value as specified in Vectors of Trust . See Vectors of Trust for more details. vot takes precedence over acr.
+    OPTIONAL. The vector value as specified in Vectors of Trust . See Vectors of Trust for more details. vot takes precedence over acr.
 vtm
 
-REQUIRED if vot is provided. The trustmark URI as specified in Vectors of Trust . See Vectors of Trust for more details.
+    REQUIRED if vot is provided. The trustmark URI as specified in Vectors of Trust . See Vectors of Trust for more details.
 acr
 
     OPTIONAL. The LoA the user was authenticated at. MUST be a member of the acr_values list from the authentication request **or that was agreed upon through other means**. The OpenID Provider MUST NOT include this field if vot is provided. See Authentication Context for more details. 
