@@ -30,10 +30,10 @@ The generic use case where this profile can be applied, is very similar to the u
 Clients are restricted to web-applications in this version of the profile. Future updates may add support for native applications.
 Next to identification and authentication, a Client may want to receive attributes that are more reliable than those self-claimed by the User.
 
-As OpenID Connect is not explicitly applicable to Resource Servers, these are left out of scope. As in the original OAuth iGov-NL profile, this profile focuses on a Relying Party also known as a Client.
+As OpenID Connect is not explicitly applicable to Resource Servers, these are left out of scope. As in the original iGov-NL OAuth2 profile, this profile focuses on a Relying Party also known as a Client.
 
 # Flow for identification and authentication
-The flow starts identical to the use case flow of the OAuth2 iGov-NL profile. As with iGov-NL OAuth2, only the authorization code flow is used in this profile.
+The flow starts identical to the use case flow of the iGov-NL OAuth2 profile. As with iGov-NL OAuth2, only the authorization code flow is used in this profile.
 Step 1 to 5 of that profile can be applied as-is, with the distinction that the Authorization Request explicitly is an _Authentication_ Request.
 
 Step 6 will result in an Access Token and ID Token. The Access Token can be used in a UserInfo Request or in requests to a Resource Server as in regular OAuth2.
@@ -928,7 +928,7 @@ All transactions MUST be protected in transit by TLS as described in BCP195.
 
 In addition to the Best Current Practice for TLS, it is RECOMMENDED for all conforming implementations to incorporate the TLS guidelines from the Dutch NCSC into their implementations.
 For backchannel communitcation, the guidelines categorized as "good" MUST be applied.
-For frontchannel communication, the guidelines for "good" SHOULD be applied and the guidelines for "sufficient" MAY be applied, depending target audience and support requirements.
+For frontchannel communication, the guidelines for "good" MUST be applied and the guidelines for "sufficient" MAY be applied, depending target audience and support requirements.
 Guidelines categorized as "insufficient" MUST NOT be applied and those categorized as "deprecated" SHOULD NOT be used.
 
 **/iGov-NL**
