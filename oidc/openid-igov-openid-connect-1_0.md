@@ -103,14 +103,14 @@ components, in any valid combination, all components MUST fully conform to the
 features and requirements of this specification. All interaction with non-iGov-**NL**
 components is outside the scope of this specification.
 
-An iGov-**NL**-compliant OpenID Connect IdP MUST support all features as described in
+An iGov-**NL**-compliant OpenID ~~Connect IdP~~ **Provider** MUST support all features as described in
 this specification. A general-purpose IdP MAY support additional features for
 use with non-iGov-**NL** clients.
 
-An iGov-**NL**-compliant OpenID Connect IdP MAY also provide iGov-compliant OAuth 2.0
+An iGov-**NL**-compliant OpenID ~~Connect IdP~~ **Provider** MAY also provide iGov-compliant OAuth 2.0
 authorization server functionality. In such cases, the authorization server
 MUST fully implement the OAuth 2.0 iGov-**NL** profile. If an iGov-compliant OpenID
-Connect IdP does not provide iGov-compliant OAuth 2.0 authorization server
+~~Connect IdP~~ **Provider** does not provide iGov-compliant OAuth 2.0 authorization server
 services, all features related to interaction between the authorization server
 and protected resource are therefore OPTIONAL.
 
