@@ -361,10 +361,9 @@ exp, iat, nbf
     REQUIRED. The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges. 
 
 This example ID token has been signed using the server's RSA key:
-
     
     
-    eyJhbGciOiJSUzI1NiJ9.eyJhdXRoX3RpbWUiOjE0
+            eyJhbGciOiJSUzI1NiJ9.eyJhdXRoX3RpbWUiOjE0
             MTg2OTg3ODIsImV4cCI6MTQxODY5OTQxMiwic3ViI
             joiNldaUVBwblF4ViIsIm5vbmNlIjoiMTg4NjM3Yj
             NhZjE0YSIsImF1ZCI6WyJjMWJjODRlNC00N2VlLTR
@@ -383,8 +382,7 @@ This example ID token has been signed using the server's RSA key:
 Its claims are as follows:
 
     
-    
-     {
+          {
             "iss": "https://idp-p.example.com/",
             "aud": [
               "c1bc84e4-47ee-4b64-bb52-5cda6c81f788"
@@ -397,8 +395,7 @@ Its claims are as follows:
 	        "nbf": 1418698812,
             "exp": 1418699412,
 			"jti": "b42e57f8-4cfa-474a-afed-f0e9a77880c9"
-            }
-            
+          }
 
 ##  3.2. Pairwise Identifiers *and Public Identifiers*
 
@@ -451,43 +448,41 @@ error if they do.
 
 In an example transaction, the client sends a request to the UserInfo Endpoint
 like the following:
-
     
     
-    GET /userinfo HTTP/1.1
-    Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTg3MDI0MTIsIm
-    F1ZCI6WyJjMWJjODRlNC00N2VlLTRiNjQtYmI1Mi01Y2RhNmM4MWY3ODgiXSwiaXNzIjo
-    iaHR0cHM6XC9cL2lkcC1wLmV4YW1wbGUuY29tXC8iLCJqdGkiOiJkM2Y3YjQ4Zi1iYzgx
-    LTQwZWMtYTE0MC05NzRhZjc0YzRkZTMiLCJpYXQiOjE0MTg2OTg4MTJ9i.HMz_tzZ90_b
-    0QZS-AXtQtvclZ7M4uDAs1WxCFxpgBfBanolW37X8h1ECrUJexbXMD6rrj_uuWEqPD738
-    oWRo0rOnoKJAgbF1GhXPAYnN5pZRygWSD1a6RcmN85SxUig0H0e7drmdmRkPQgbl2wMhu
-    -6h2Oqw-ize4dKmykN9UX_2drXrooSxpRZqFVYX8PkCvCCBuFy2O-HPRov_SwtJMk5qjU
-    WMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_EHF9ePy
-    q3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKaHtSZ6PQICoA
-    Accept: text/plain, application/json, application/*+json, */*
-    Host: idp-p.example.com
-    Connection: Keep-Alive
-    User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
+		GET /userinfo HTTP/1.1
+		Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTg3MDI0MTIsIm
+		 F1ZCI6WyJjMWJjODRlNC00N2VlLTRiNjQtYmI1Mi01Y2RhNmM4MWY3ODgiXSwiaXNzIjo
+		 iaHR0cHM6XC9cL2lkcC1wLmV4YW1wbGUuY29tXC8iLCJqdGkiOiJkM2Y3YjQ4Zi1iYzgx
+		 LTQwZWMtYTE0MC05NzRhZjc0YzRkZTMiLCJpYXQiOjE0MTg2OTg4MTJ9i.HMz_tzZ90_b
+		 0QZS-AXtQtvclZ7M4uDAs1WxCFxpgBfBanolW37X8h1ECrUJexbXMD6rrj_uuWEqPD738
+		 oWRo0rOnoKJAgbF1GhXPAYnN5pZRygWSD1a6RcmN85SxUig0H0e7drmdmRkPQgbl2wMhu
+		 -6h2Oqw-ize4dKmykN9UX_2drXrooSxpRZqFVYX8PkCvCCBuFy2O-HPRov_SwtJMk5qjU
+		 WMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_EHF9ePy
+		 q3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKaHtSZ6PQICoA
+		Accept: text/plain, application/json, application/*+json, */*
+		Host: idp-p.example.com
+		Connection: Keep-Alive
+		User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
     
 
 And receives a document in response like the following:
+    
+    
+		HTTP/1.1 200 OK
+		Date: Tue, 16 Dec 2014 03:00:12 GMT
+		Access-Control-Allow-Origin: *
+		Content-Type: application/json;charset=ISO-8859-1
+		Content-Language: en-US
+		Content-Length: 333
+		Connection: close
 
-    
-    
-    HTTP/1.1 200 OK
-    Date: Tue, 16 Dec 2014 03:00:12 GMT
-    Access-Control-Allow-Origin: *
-    Content-Type: application/json;charset=ISO-8859-1
-    Content-Language: en-US
-    Content-Length: 333
-    Connection: close
-    
-    {
-       "sub": "6WZQPpnQxV",
-       "iss": "https://idp-p.example.com"
-       "given_name": "Stephen",
-       "family_name": "Emeritus",
-    }
+		{
+		   "sub": "6WZQPpnQxV",
+		   "iss": "https://idp-p.example.com"
+		   "given_name": "Stephen",
+		   "family_name": "Emeritus",
+		}
     
 
 OpenID Providers MUST support the generation of JWT encoded responses from the
@@ -500,7 +495,9 @@ signature and encryption methods listed in the JSON Web Algorithms (JWA)
 specification.
 
 **iGov-NL**
+
 In addition to RS256, OpenID Providers SHOULD support using the PS256 (RSASSA-PSS using SHA-256 and MGF1 with SHA-256) signature algorithm.
+
 **/iGov-NL**
 
 ##  3.4. Request Objects
@@ -653,79 +650,78 @@ for an authorization server:
 
     
     
-    {
-      "request_parameter_supported": true,
-      "id_token_encryption_alg_values_supported": [
-        "RSA-OAEP", "RSA1_5", "RSA-OAEP-256"
-      ],
-      "registration_endpoint": "https://idp-p.example.com/register",
-      "userinfo_signing_alg_values_supported": [
-        "RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
-      ],
-      "token_endpoint": "https://idp-p.example.com/token",
-      "request_uri_parameter_supported": false,
-      "request_object_encryption_enc_values_supported": [
-        "A192GCM", "A128GCM", "A256GCM"
-      ],
-      "token_endpoint_auth_methods_supported": [
-        "private_key_jwt",
-      ],
-      "userinfo_encryption_alg_values_supported": [
-        "RSA-OAEP", "RSA1_5",
-        "RSA-OAEP-256"
-      ],
-      "subject_types_supported": [
-        "public", "pairwise"
-      ],
-      "id_token_encryption_enc_values_supported": [
-        "A192GCM", "A128GCM", "A256GCM"
-      ],
-      "claims_parameter_supported": true,
-      "jwks_uri": "https://idp-p.example.com/jwk",
-      "id_token_signing_alg_values_supported": [
-        "RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
-      ],
-      "authorization_endpoint": "https://idp-p.example.com/authorize",
-      "require_request_uri_registration": true,
-      "introspection_endpoint": "https://idp-p.example.com/introspect",
-      "request_object_encryption_alg_values_supported": [
-        "RSA-OAEP", ?RSA1_5", "RSA-OAEP-256"
-      ],
-      "service_documentation": "https://idp-p.example.com/about",
-      "response_types_supported": [
-        "code", "token"
-      ],
-      "token_endpoint_auth_signing_alg_values_supported": [
-        "RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
-      ],
-      "revocation_endpoint": "https://idp-p.example.com/revoke",
-      "request_object_signing_alg_values_supported": [
-        "RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
-      ],
-      "claim_types_supported": [
-        "normal"
-      ],
-      "grant_types_supported": [
-        "authorization_code",
-      ],
-      "scopes_supported": [
-        "profile", "openid"
-      ],
-      "userinfo_endpoint": "https://idp-p.example.com/userinfo",
-      "userinfo_encryption_enc_values_supported": [
-        "A192GCM", "A128GCM", "A256GCM"
-      ],
-      "op_tos_uri": "https://idp-p.example.com/about",
-      "issuer": "https://idp-p.example.com/",
-      "op_policy_uri": "https://idp-p.example.com/about",
-      "claims_supported": [
-        "sub", "name", "acr"
-      ],
-      "acr_values_supported": [
-		  "http://eidas.europa.eu/LoA/substantial",
-		  "http://eidas.europa.eu/LoA/high"
-	  ]
-    }
+		{
+		  "request_parameter_supported": true,
+		  "id_token_encryption_alg_values_supported": [
+			"RSA-OAEP", "RSA-OAEP-256"
+		  ],
+		  "registration_endpoint": "https://idp-p.example.com/register",
+		  "userinfo_signing_alg_values_supported": [
+			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
+		  ],
+		  "token_endpoint": "https://idp-p.example.com/token",
+		  "request_uri_parameter_supported": false,
+		  "request_object_encryption_enc_values_supported": [
+			"A192GCM", "A128GCM", "A256GCM"
+		  ],
+		  "token_endpoint_auth_methods_supported": [
+			"private_key_jwt",
+		  ],
+		  "userinfo_encryption_alg_values_supported": [
+			"RSA-OAEP", "RSA-OAEP-256"
+		  ],
+		  "subject_types_supported": [
+			"public", "pairwise"
+		  ],
+		  "id_token_encryption_enc_values_supported": [
+			"A192GCM", "A128GCM", "A256GCM"
+		  ],
+		  "claims_parameter_supported": true,
+		  "jwks_uri": "https://idp-p.example.com/jwk",
+		  "id_token_signing_alg_values_supported": [
+			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
+		  ],
+		  "authorization_endpoint": "https://idp-p.example.com/authorize",
+		  "require_request_uri_registration": true,
+		  "introspection_endpoint": "https://idp-p.example.com/introspect",
+		  "request_object_encryption_alg_values_supported": [
+			"RSA-OAEP", "RSA-OAEP-256"
+		  ],
+		  "service_documentation": "https://idp-p.example.com/about",
+		  "response_types_supported": [
+			"code", "token"
+		  ],
+		  "token_endpoint_auth_signing_alg_values_supported": [
+			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
+		  ],
+		  "revocation_endpoint": "https://idp-p.example.com/revoke",
+		  "request_object_signing_alg_values_supported": [
+			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
+		  ],
+		  "claim_types_supported": [
+			"normal"
+		  ],
+		  "grant_types_supported": [
+			"authorization_code",
+		  ],
+		  "scopes_supported": [
+			"profile", "openid"
+		  ],
+		  "userinfo_endpoint": "https://idp-p.example.com/userinfo",
+		  "userinfo_encryption_enc_values_supported": [
+			"A192GCM", "A128GCM", "A256GCM"
+		  ],
+		  "op_tos_uri": "https://idp-p.example.com/about",
+		  "issuer": "https://idp-p.example.com/",
+		  "op_policy_uri": "https://idp-p.example.com/about",
+		  "claims_supported": [
+			"sub", "name", "acr"
+		  ],
+		  "acr_values_supported": [
+			  "http://eidas.europa.eu/LoA/substantial",
+			  "http://eidas.europa.eu/LoA/high"
+		  ]
+		}
     
 
 It is RECOMMENDED that servers provide cache information through HTTP headers
@@ -748,27 +744,27 @@ The server MUST provide its public key in JWK Set format, such as the
 following 2048-bit RSA key:
 
     
-    {
-      "keys": [
-        {
-          "alg": "RS256",
-          "e": "AQAB",
-          "n": "o80vbR0ZfMhjZWfqwPUGNkcIeUcweFyzB2S2T-hje83IOVct8gVg9Fx
-                vHPK1ReEW3-p7-A8GNcLAuFP_8jPhiL6LyJC3F10aV9KPQFF-w6Eq6V
-                tpEgYSfzvFegNiPtpMWd7C43EDwjQ-GrXMVCLrBYxZC-P1ShyxVBOze
-                R_5MTC0JGiDTecr_2YT6o_3aE2SIJu4iNPgGh9MnyxdBo0Uf0TmrqEI
-                abquXA1-V8iUihwfI8qjf3EujkYi7gXXelIo4_gipQYNjr4DBNl
-                E0__RI0kDU-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEq
-                fCaPDNp00J6AbY6w",
-          "kty": "RSA",
-          "kid": "rsa1",
-		  "x5c": "MIIFdDCCA1ygAwIBAgIEAJiiOTANBgkqhkiG9w0BAQsFADBaMQswCQYDVQQGEwJO
-			      ...
-				  QFH1T/U67cjF68IeHRaVesd+QnGTbksVtzDfqu1XhUisHWrdOWnk4Xl4vs4Fv6EM
-				  94B7IWcnMFk="
-        }
-      ]
-    }
+		{
+		  "keys": [
+			{
+			  "alg": "RS256",
+			  "e": "AQAB",
+			  "n": "o80vbR0ZfMhjZWfqwPUGNkcIeUcweFyzB2S2T-hje83IOVct8gVg9Fx
+					vHPK1ReEW3-p7-A8GNcLAuFP_8jPhiL6LyJC3F10aV9KPQFF-w6Eq6V
+					tpEgYSfzvFegNiPtpMWd7C43EDwjQ-GrXMVCLrBYxZC-P1ShyxVBOze
+					R_5MTC0JGiDTecr_2YT6o_3aE2SIJu4iNPgGh9MnyxdBo0Uf0TmrqEI
+					abquXA1-V8iUihwfI8qjf3EujkYi7gXXelIo4_gipQYNjr4DBNl
+					E0__RI0kDU-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEq
+					fCaPDNp00J6AbY6w",
+			  "kty": "RSA",
+			  "kid": "rsa1",
+			  "x5c": "MIIFdDCCA1ygAwIBAgIEAJiiOTANBgkqhkiG9w0BAQsFADBaMQswCQYDVQQGEwJO
+					  ...
+					  QFH1T/U67cjF68IeHRaVesd+QnGTbksVtzDfqu1XhUisHWrdOWnk4Xl4vs4Fv6EM
+					  94B7IWcnMFk="
+			}
+		  ]
+		}
     
 
 ##  3.8. Dynamic Registration
