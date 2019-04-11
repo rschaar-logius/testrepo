@@ -29,13 +29,15 @@ This profile is based upon the international government assurance profile for Op
 
 We have added the chapter [Usecases](#Usecases) to illustrate the specific usecase the iGov-NL profile is aimed at. Starting with chapter [Introduction](#Introduction) we follow the structure of the iGov profile. Where we do not use content from iGov we use ~~strikethrough~~ to indicate it is not part of iGov-NL. Where we have added more specific requirements for the Dutch situation this is indicated with **iGov-NL** tags or **bold** for minor changes.
 
+As in the original iGov OpenID Connect profile, this profile focuses on a Relying Party also known as a Client.
+As OpenID Connect is not explicitly applicable to Resource Servers, these are left out of scope.
+Please refer to the iGov-NL profile for a profile dealing with interactions between Resource Servers and Authorization Servers.
+
 # Use case
-The generic use case where this profile can be applied, is very similar to the use case for the iGov-NL OAuth2 profile. A Client application wishes to identify _and authenticate_ a User. Authenticating the User is in addition to the use case for the OAuth2 iGov profile.
+The generic use case where this profile can be applied, is very similar to the use case for the iGov-NL OAuth2 profile. A Client application wishes to identify _and authenticate_ a User and may additionally want to receive User attributes from a trusted party. Authenticating the User is in addition to the use case for the OAuth2 iGov-NL profile.
 
 Clients are restricted to web-applications in this version of the profile. Future updates may add support for native applications.
 Next to identification and authentication, a Client may want to receive attributes that are more reliable than those self-claimed by the User.
-
-As OpenID Connect is not explicitly applicable to Resource Servers, these are left out of scope. As in the original iGov-NL OAuth2 profile, this profile focuses on a Relying Party also known as a Client.
 
 # Flow for identification and authentication
 The flow starts identical to the use case flow of the iGov-NL OAuth2 profile. As with iGov-NL OAuth2, only the authorization code flow is used in this profile.
@@ -236,22 +238,19 @@ Clients MUST verify the following in received ID tokens:
 
 iss
 
-    The "issuer" field is the Uniform Resource Locater (URL) of the expected issuer 
+    The "issuer" field is the Uniform Resource Locat~~e~~**o**r (URL) of the expected ~~issuer~~ **OpenID Provider**
 aud
 
-    The "audience" field contains the client ID of the client 
+    The "audience" field contains the client ID(s) of the ~~client~~**Relying Party or Relying Parties. Any Relying Party MUST validate they are listed as audience for this ID-token.**
 exp, iat, nbf
 
-    The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges 
+    The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges**.**
 
 **iGov-NL**
 	
 nonce
 
     The "nonce" field MUST be used by Clients to detect/prevent CSRF, replay and other attacks and Clients MUST verify that the nonce Claim Value is equal to the value of the nonce parameter sent in the Authentication Request.
-aud
-
-    Clients MUST validate they are listed as audience for this ID-token.
 acr
 
     Client SHOULD validate the authentication context class reference, if present, satisfies the minimum required before authorizing access to any resource or performing any operation on behalf of the identified subject.
@@ -276,7 +275,14 @@ The `request_uri` value MUST be reachable or retrievable by the OP. The server h
 
 **/iGov-NL**
 
-##  2.5. Discovery
+##  2.5. **OpenID Provider** Discovery
+
+**iGov-NL**
+
+Clients and Resource Servers can use OpenID configuration published by OpenID Providers to obtain information 
+about OpenID Provider configurations. 
+
+**/iGov-NL**
 
 Clients and protected resources SHOULD cache OpenID Provider metadata once an
 OP has been discovered and used by the client **or resource server**.
@@ -298,10 +304,10 @@ NOTE: the client_secret_jwt method is not considered of equivalent security and 
 ### PKIoverheid
 In case the Relying Party and OpenID Provider are not operated under responsibility of the same organization, each party MUST use PKIoverheid certificates with OIN.
 
-The PKIoverheid certificate MUST be included as a <code>x5c</code> parameter.
-The <code>x5c</code> parameter MUST be included as a list (array) of X509 certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
+The PKIoverheid certificate MUST be included as a `x5c` parameter.
+The `x5c` parameter MUST be included as a list (array) of X.509 certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
 The first certificate MUST be the Client's certificate, optionally followed by the rest of that certificate's chain.
-The jwks structure MUST include the public key parameters with the same values of the corresponding X509 certificate included as <code>x5c</code>, as per [RFC7517] §4.7.
+The jwks structure MUST include the public key parameters with the same values of the corresponding X.509 certificate included as `x5c`, as per [RFC7517] §4.7.
 
 **/iGov-NL**
 
@@ -313,7 +319,7 @@ The jwks structure MUST include the public key parameters with the same values o
 All ID Tokens MUST be signed by the OpenID Provider's private signature key.
 ID Tokens MAY be encrypted using the appropriate key of the requesting client.
 
-The ID Token MUST expire and SHOULD have an active lifetime no longer than
+~~The ~~ID Token**s** MUST expire and SHOULD have an active lifetime no longer than
 five minutes. Since the ID token is consumed by the client and not presented
 to remote systems, much shorter expiration times are RECOMMENDED where
 possible.
@@ -491,7 +497,7 @@ be signed by the OpenID Provider's key, and encrypted responses MUST be
 encrypted with the authorized client's public key. The OpenID Provider MUST
 support the RS256 signature method (the Rivest, Shamir, and Adleman (RSA)
 signature algorithm with a 256-bit hash) and MAY use other asymmetric
-signature and encryption methods listed in the JSON Web Algorithms (JWA)
+signature and encryption methods**, which provide equivalent or better security,** listed in the JSON Web Algorithms (JWA)
 specification.
 
 **iGov-NL**
@@ -513,8 +519,9 @@ parameter.
 Both of these methods allow for clients to create a request that is protected
 from tampering through the browser, allowing for a higher security mode of
 operation for clients and applications that require it. Clients are not
-required to use request objects, but OpenID Providers are required to support
-requests using them.
+required to use request objects**.**~~, but~~ OpenID Providers ~~are required to~~ **MUST** support
+**signed** requests ~~using them~~ **request objects passed by value and MAY 
+support encryption of request object, pass by reference and combinations of the above**.
 
 **iGov-NL**
 
@@ -597,22 +604,22 @@ authorization_endpoint
     REQUIRED. The fully qualified URL of the OpenID Provider's authorization endpoint defined by [RFC6749]. 
 token_endpoint
 
-    REQUIRED. The fully qualified URL of the server's token endpoint defined by [RFC6749]. 
+    REQUIRED. The fully qualified URL of the server's token endpoint **as** defined by [RFC6749]. 
 
 **iGov-NL**
 
 userinfo_endpoint
 
-    REQUIRED. The fully qualified URL of the server's user info endpoint defined by [OpenID.Discovery].
+    REQUIRED. The fully qualified URL of the server's user info endpoint **as** defined by [OpenID.Discovery].
 
 **/iGov-NL**
 
 introspection_endpoint
 
-    OPTIONAL. The fully qualified URL of the server's introspection endpoint defined by OAuth Token Introspection. 
+    OPTIONAL. The fully qualified URL of the server's introspection endpoint **as** defined by OAuth Token Introspection. 
 revocation_endpoint
 
-    OPTIONAL. The fully qualified URL of the server's revocation endpoint defined by OAuth Token Revocation. 
+    OPTIONAL. The fully qualified URL of the server's revocation endpoint **as** defined by OAuth Token Revocation. 
 jwks_uri
 
     REQUIRED. The fully qualified URI of the server's public key in JWK Set format. For verifying the signatures on the id_token. 
@@ -733,10 +740,12 @@ and make the cache valid for at least one week.
 ### PKIoverheid
 In case the Relying Party and OpenID Provider are not operated under responsibility of the same organization, each party MUST use PKIoverheid certificates with OIN.
 
-The PKIoverheid certificate MUST be included as a <code>x5c</code> parameter.
-The <code>x5c</code> parameter MUST be included as a list (array) of X509 certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
+The PKIoverheid certificate MUST be included as a `x5c` parameter.
+The `x5c` parameter MUST be included as a list (array) of X.509 certificate(s), as Base64 DER encoded PKIoverheid certificate(s).
 The first certificate MUST be the Client's certificate, optionally followed by the rest of that certificate's chain.
-The jwks structure MUST include the public key parameters with the same values of the corresponding X509 certificate included as <code>x5c</code>, as per [RFC7517] §4.7.
+The jwks structure MUST include the public key parameters with the same values of the corresponding X.509 certificate included as `x5c`, as per [RFC7517] §4.7.
+
+### JWKS
 
 **/iGov-NL**
 
@@ -777,7 +786,7 @@ specification (see section ~~3.13~~ **1.4.1.3**).
 
 The availability, quality, and reliability of an individual's identity
 attributes will vary greatly across jurisdictions and Provider systems. The
-following recommendations ensure maximum cross-jurisdictional
+following recommendations **aims to** ensure maximum cross-jurisdictional
 interoperability, while setting Client expectations on the type of data they
 may acquire.
 
@@ -794,7 +803,7 @@ set out by the federation.
 
 ##  4.2. Scope Profiles
 
-In the interests of data minimization balanced with the requirement to
+In the interests of data minimization**,** balanced with the requirement to
 successfully identify the individual signing in to a service, the default
 OpenID Connect profiles may not be appropriate.
 
@@ -821,7 +830,7 @@ profile
 
 **iGov-NL**
 
-As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is discouraged in the iGov-NL profile. Usage of the `doc` claims in the Netherlands is NOT RECOMMENDED.
+As the Netherlands has standardized on using a citizen identification number (_BurgerServiceNummer_ or BSN), directly referencing document numbers is discouraged in the iGov-NL profile. Usage of `doc` claims in the Netherlands is NOT RECOMMENDED.
 
 **/iGov-NL**
 
@@ -848,14 +857,14 @@ As the Netherlands has standardized on using a citizen identification number (_B
 
 **/iGov-NL**
 
-Client requesting the doc scope MUST provide a claims request parameter
+Client**s** requesting the doc scope MUST provide a claims request parameter
 indicating the document type (or types) and fields they wish to receive, or
 they will receive none. The OpenID Provider MUST NOT return any doc related
 claims not included in the claims request. Client requests that include the
 doc scope but no claims request MUST NOT be rejected by the OpenID Provider,
 but simply no doc related claims are returned in the UserInfo object.
 
-##  4.4. Claims Response
+##  4.4. ~~Claims~~ **UserInfo** Response
 
 Response to a UserInfo request MUST match the scope and claims requested to
 avoid having a OpenID Provider over-expose a user's identity information.
@@ -904,8 +913,8 @@ user's government identity information and activity from unintentional
 exposure.
 
 Pairwise anonymous identifiers MUST be supported by the OpenID Providers for
-frameworks where subjects should not be traceable across clients by their
-subject ID. This prevents a situation where a user may inadvertently be
+~~frameworks~~ **cases** where subjects should not be traceable across clients by their
+subject ~~ID~~ **identifiers**. This prevents a situation where a user may inadvertently be
 assigned a universal government identifier.
 
 Request claims MUST be supported by the OpenID Providers to ensure that only
@@ -973,6 +982,7 @@ Model and Security Considerations document.
 **[RFC7517]** |  Jones, M., "[JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517)", RFC 7517, DOI 10.17487/RFC7517, May 2015.  
 **[RFC7518]** |  Jones, M., "[JSON Web Algorithms (JWA)](https://tools.ietf.org/html/rfc7518)", RFC 7518, DOI 10.17487/RFC7518, May 2015.  
 **[RFC7519]** |  Jones, M., Bradley, J. and N. Sakimura, "[JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)", RFC 7519, DOI 10.17487/RFC7519, May 2015.  
+**[RFC7591]** |  Jones, M., Bradley, J., Machulak, M. and hunt, P. | "[OAuth 2.0 Dynamic Client Registration Protocol](https://tools.ietf.org/html/rfc7591)", RFC 7591, July 2015.__
 **[RFC7636]** |  Sakimura, N., Bradley, J. and N. Agarwal, "[Proof Key for Code Exchange by OAuth Public Clients](https://tools.ietf.org/html/rfc7636)", RFC 7636, DOI 10.17487/RFC7636, September 2015.  
 **[RFC7662]** |  Richer, J., "[OAuth 2.0 Token Introspection](https://tools.ietf.org/html/rfc7662)", RFC 7662, DOI 10.17487/RFC7662, October 2015.  
 **[RFC7800]** |  Jones, M., Bradley, J. and H. Tschofenig, "[Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs)](https://tools.ietf.org/html/rfc7800)", RFC 7800, DOI 10.17487/RFC7800, April 2016.  
