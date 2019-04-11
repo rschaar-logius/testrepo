@@ -1,10 +1,9 @@
 # TODO
- * steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
  * add NCSC TLS reference once update is available
 
 # NOTES
- * Note: original iGov example are inconsistent or even invalid
+ * Note: original iGov examples are inconsistent or even invalid
 
 
 # Abstract
@@ -33,6 +32,9 @@ We have added the chapter [Usecases](#Usecases) to illustrate the specific useca
 As in the original iGov OpenID Connect profile, this profile focuses on a Relying Party also known as a Client.
 As OpenID Connect is not explicitly applicable to Resource Servers, these are left out of scope.
 Please refer to the iGov-NL profile for a profile dealing with interactions between Resource Servers and Authorization Servers.
+
+Note that this profile does not detail all steps in the protocol flow, nor each option and parameter.
+For further details the [iGov-NL.OAuth2] profile and OAuth 2.0 and OpenID Connect specifications are applicable.
 
 # Use case
 The generic use case where this profile can be applied, is very similar to the use case for the iGov-NL OAuth2 profile. A Client application wishes to identify _and authenticate_ a User and may additionally want to receive User attributes from a trusted party. Authenticating the User is in addition to the use case for the OAuth2 iGov-NL profile.
