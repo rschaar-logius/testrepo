@@ -553,7 +553,7 @@ their digital identity practices to valid VOT component values.
 
 OpenID Providers ~~MAY~~ **SHOULD** provide acr (authentication context class reference,
 equivalent to the Security Assertion Markup Language (SAML) element of the
-same name) and amr (authentication methods reference) values in ID tokens only
+same name) and **MAY provide** amr (authentication methods reference) values in ID tokens only
 if vtr is not used.
 
 **iGov-NL**
