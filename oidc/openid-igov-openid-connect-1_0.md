@@ -1,6 +1,7 @@
 # TODO
  * steps in the flow not yet detailed in this profile
  * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
+ * add NCSC TLS reference once update is available
 
 # NOTES
  * Note: original iGov example are inconsistent or even invalid
@@ -996,3 +997,7 @@ The following updates are foreseen to be made in future updates to this profile.
 
 ## Client Authentication using Mutual TLS
 Instead of, or in addition to, the `private_key_jwt` client authentication method, mutual authenticated TLS MAY be used. This currently is specified in draft by IETF, see https://tools.ietf.org/html/draft-ietf-oauth-mtls-13.
+As result of this addition, the following changes SHOULD be anticipated:
+* Addition of a `client_id` parameter in token Requests, instead of a `client_assertion` and `client_assertion_type`.
+* Option for Clients to support `tls_client_auth` instead of or in addition to `private_key_jwt`.
+* Requirement on OPs to support for `tls_client_auth` client authentication method next to `private_key_jwt`.
