@@ -179,12 +179,10 @@ Note that a `redirect_uri` MUST be pre-registered with the OpenID Provider as de
 
 A sample request may look like:
 
-    
-    
-    https://idp.government.gov/oidc/authorization?
+    https://op.example.nl/oidc/authorization?
       response_type=code
       &client_id=827937609728-m2mvqffo9bsefh4di90saus4n0diar2h
-      &scope=openid+d
+      &scope=openid
       &redirect_uri=https%3A%2F%2Frp.fed1.gov%2Foidc%2FloginResponse
       &state=2ca3359dfbfd0
 	  &nonce=9d3252993a38454c8a6c3a4b86997aaa
@@ -384,7 +382,7 @@ Its claims are as follows:
 
     
           {
-            "iss": "https://idp-p.example.com/",
+            "iss": "https://op.example.nl/",
             "aud": [
               "c1bc84e4-47ee-4b64-bb52-5cda6c81f788"
             ],
@@ -462,9 +460,8 @@ like the following:
 		 WMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_EHF9ePy
 		 q3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKaHtSZ6PQICoA
 		Accept: text/plain, application/json, application/*+json, */*
-		Host: idp-p.example.com
+		Host: op.example.nl
 		Connection: Keep-Alive
-		User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
     
 
 And receives a document in response like the following:
@@ -480,7 +477,7 @@ And receives a document in response like the following:
 
 		{
 		   "sub": "6WZQPpnQxV",
-		   "iss": "https://idp-p.example.com"
+		   "iss": "https://op.example.nl"
 		   "given_name": "Stephen",
 		   "family_name": "Emeritus",
 		}
@@ -630,7 +627,7 @@ claims_supported
 
 vot
 
-OPTIONAL. The vectors supported.
+    OPTIONAL. The vectors supported.
 
 acr_values_**supported**
 
@@ -653,53 +650,58 @@ for an ~~authorization server~~ **OpenID Provider**:
     
     
 		{
+		  "issuer": "https://op.example.nl/",
+		  "authorization_endpoint": "https://op.example.nl/authorize",
 		  "request_parameter_supported": true,
-		  "id_token_encryption_alg_values_supported": [
-			"RSA-OAEP", "RSA-OAEP-256"
-		  ],
-		  "registration_endpoint": "https://idp-p.example.com/register",
-		  "userinfo_signing_alg_values_supported": [
-			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
-		  ],
-		  "token_endpoint": "https://idp-p.example.com/token",
-		  "request_uri_parameter_supported": false,
+		  "claims_parameter_supported": true,
+		  "request_uri_parameter_supported": true,
+		  "require_request_uri_registration": true,
 		  "request_object_encryption_enc_values_supported": [
 			"A192GCM", "A128GCM", "A256GCM"
 		  ],
-		  "token_endpoint_auth_methods_supported": [
-			"private_key_jwt",
-		  ],
-		  "userinfo_encryption_alg_values_supported": [
-			"RSA-OAEP", "RSA-OAEP-256"
-		  ],
-		  "subject_types_supported": [
-			"public", "pairwise"
-		  ],
-		  "id_token_encryption_enc_values_supported": [
-			"A192GCM", "A128GCM", "A256GCM"
-		  ],
-		  "claims_parameter_supported": true,
-		  "jwks_uri": "https://idp-p.example.com/jwk",
-		  "id_token_signing_alg_values_supported": [
-			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
-		  ],
-		  "authorization_endpoint": "https://idp-p.example.com/authorize",
-		  "require_request_uri_registration": true,
-		  "introspection_endpoint": "https://idp-p.example.com/introspect",
 		  "request_object_encryption_alg_values_supported": [
 			"RSA-OAEP", "RSA-OAEP-256"
 		  ],
-		  "service_documentation": "https://idp-p.example.com/about",
-		  "response_types_supported": [
-			"code", "token"
+		  "request_object_signing_alg_values_supported": [
+			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
+		  ],
+		  "token_endpoint": "https://op.example.nl/token",
+		  "token_endpoint_auth_methods_supported": [
+			"private_key_jwt",
 		  ],
 		  "token_endpoint_auth_signing_alg_values_supported": [
 			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
 		  ],
-		  "revocation_endpoint": "https://idp-p.example.com/revoke",
-		  "request_object_signing_alg_values_supported": [
+		  "id_token_signing_alg_values_supported": [
 			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
 		  ],
+		  "id_token_encryption_alg_values_supported": [
+			"RSA-OAEP", "RSA-OAEP-256"
+		  ],
+		  "id_token_encryption_enc_values_supported": [
+			"A192GCM", "A128GCM", "A256GCM"
+		  ],
+		  "userinfo_endpoint": "https://op.example.nl/userinfo",
+		  "userinfo_signing_alg_values_supported": [
+			"RS256", "RS384", "RS512", "PS256", "PS384", "PS512"
+		  ],
+		  "userinfo_encryption_alg_values_supported": [
+			"RSA-OAEP", "RSA-OAEP-256"
+		  ],
+		  "userinfo_encryption_enc_values_supported": [
+			"A192GCM", "A128GCM", "A256GCM"
+		  ],
+		  "introspection_endpoint": "https://op.example.nl/introspect",
+		  "registration_endpoint": "https://op.example.nl/register",
+		  "subject_types_supported": [
+			"public", "pairwise"
+		  ],
+		  "jwks_uri": "https://op.example.nl/jwk",
+		  "service_documentation": "https://op.example.nl/about",
+		  "response_types_supported": [
+			"code"
+		  ],
+		  "revocation_endpoint": "https://op.example.nl/revoke",
 		  "claim_types_supported": [
 			"normal"
 		  ],
@@ -709,13 +711,8 @@ for an ~~authorization server~~ **OpenID Provider**:
 		  "scopes_supported": [
 			"profile", "openid"
 		  ],
-		  "userinfo_endpoint": "https://idp-p.example.com/userinfo",
-		  "userinfo_encryption_enc_values_supported": [
-			"A192GCM", "A128GCM", "A256GCM"
-		  ],
-		  "op_tos_uri": "https://idp-p.example.com/about",
-		  "issuer": "https://idp-p.example.com/",
-		  "op_policy_uri": "https://idp-p.example.com/about",
+		  "op_tos_uri": "https://op.example.nl/about",
+		  "op_policy_uri": "https://op.example.nl/about",
 		  "claims_supported": [
 			"sub", "name", "acr"
 		  ],
