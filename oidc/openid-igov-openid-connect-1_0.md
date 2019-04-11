@@ -25,7 +25,7 @@ profile for iGov **in the Netherlands ("iGov-NL")**.
 **iGov-NL**
 
 # Dutch government Assurance profile for OpenID Connect
-This profile is based upon the international government assurance profile for OpenID Connect (iGov) [[iGOV.OIDC]] as published by the OpenID Foundation (https://openid.net/foundation/). It should be considered a fork of this profile as the iGov profile is geared more towards the American situtation and in the Netherlands we have to deal with an European Union and specific Dutch context. 
+This profile is based upon the international government assurance profile for OpenID Connect (iGov) [iGov.OIDC] as published by the OpenID Foundation (https://openid.net/foundation/). It should be considered a fork of this profile as the iGov profile is geared more towards the American situtation and in the Netherlands we have to deal with an European Union and specific Dutch context. 
 
 We have added the chapter [Usecases](#Usecases) to illustrate the specific usecase the iGov-NL profile is aimed at. Starting with chapter [Introduction](#Introduction) we follow the structure of the iGov profile. Where we do not use content from iGov we use ~~strikethrough~~ to indicate it is not part of iGov-NL. Where we have added more specific requirements for the Dutch situation this is indicated with **iGov-NL** tags or **bold** for minor changes.
 
@@ -951,6 +951,8 @@ Model and Security Considerations document.
 **[HEART.OAuth2]** |  [Richer, J.](mailto:openid@justin.richer.org), "[Health Relationship Trust Profile for OAuth 2.0](http://openid.net/specs/openid-heart-oauth2-1_0.html)", April 2017.  
 **[I-D.ietf-oauth-pop-architecture]** |  Hunt, P., Richer, J., Mills, W., Mishra, P. and H. Tschofenig, "[OAuth 2.0 Proof-of-Possession (PoP) Security Architecture](https://tools.ietf.org/html/draft-ietf-oauth-pop-architecture-08)", Internet-Draft draft-ietf-oauth-pop-architecture-08, July 2016.  
 **[iGov.OAuth2]** |  [Richer, J.](mailto:openid@justin.richer.org), "[iGov Profile for OAuth 2.0](http://openid.net/specs/openid-igov-oauth2-1_0.html)", October 2018.  
+**[iGov-NL.OAuth2]** |  Terpstra, F., "[NL GOV Assurance profile for OAuth 2.0](https://docs.geostandaarden.nl/api/oauth/)", March 2019.__
+**[iGov.OIDC]** |  [Varley, M.](mailto:mike.varley@securekey.com), "[iGov Profile for OpenID Connect 1.0](https://openid.net/specs/openid-igov-openid-connect-1_0.html)", October 2018.__
 **[OpenID.Core]** |  Sakimura, N., Bradley, J., Jones, M., de Medeiros, B. and C. Mortimore, "[OpenID Connect Core 1.0](http://openid.net/specs/openid-connect-core-1_0.html)", August 2015.  
 **[OpenID.Discovery]** |  Sakimura, N., Bradley, J., Jones, M. and E. Jay, "[OpenID Connect Discovery 1.0](http://openid.net/specs/openid-connect-discovery-1_0.html)", August 2015.  
 **[RFC2119]** |  Bradner, S., "[Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119)", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.  
