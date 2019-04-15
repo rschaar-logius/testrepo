@@ -1019,7 +1019,7 @@ Model and Security Considerations document.
 **[RFC7517]** |  Jones, M., "[JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517)", RFC 7517, DOI 10.17487/RFC7517, May 2015.  
 **[RFC7518]** |  Jones, M., "[JSON Web Algorithms (JWA)](https://tools.ietf.org/html/rfc7518)", RFC 7518, DOI 10.17487/RFC7518, May 2015.  
 **[RFC7519]** |  Jones, M., Bradley, J. and N. Sakimura, "[JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)", RFC 7519, DOI 10.17487/RFC7519, May 2015.  
-**[RFC7591]** |  Jones, M., Bradley, J., Machulak, M. and hunt, P., "[OAuth 2.0 Dynamic Client Registration Protocol](https://tools.ietf.org/html/rfc7591)", RFC 7591, July 2015.__
+**[RFC7591]** |  **Jones, M., Bradley, J., Machulak, M. and hunt, P., "[OAuth 2.0 Dynamic Client Registration Protocol](https://tools.ietf.org/html/rfc7591)", RFC 7591, July 2015.**__
 **[RFC7636]** |  Sakimura, N., Bradley, J. and N. Agarwal, "[Proof Key for Code Exchange by OAuth Public Clients](https://tools.ietf.org/html/rfc7636)", RFC 7636, DOI 10.17487/RFC7636, September 2015.  
 **[RFC7662]** |  Richer, J., "[OAuth 2.0 Token Introspection](https://tools.ietf.org/html/rfc7662)", RFC 7662, DOI 10.17487/RFC7662, October 2015.  
 **[RFC7800]** |  Jones, M., Bradley, J. and H. Tschofenig, "[Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs)](https://tools.ietf.org/html/rfc7800)", RFC 7800, DOI 10.17487/RFC7800, April 2016.  
