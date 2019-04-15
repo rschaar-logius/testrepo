@@ -997,7 +997,7 @@ Model and Security Considerations document.
 **~~[HEART.OAuth2]~~** |  ~~[Richer, J.](mailto:openid@justin.richer.org)~~, ~~"[Health Relationship Trust Profile for OAuth 2.0](http://openid.net/specs/openid-heart-oauth2-1_0.html)"~~, ~~April 2017.~~  
 **~~[I-D.ietf-oauth-pop-architecture]~~** |  ~~Hunt, P., Richer, J., Mills, W., Mishra, P. and H. Tschofenig~~, ~~"[OAuth 2.0 Proof-of-Possession (PoP) Security Architecture](https://tools.ietf.org/html/draft-ietf-oauth-pop-architecture-08)"~~, ~~Internet-Draft draft-ietf-oauth-pop-architecture-08~~, ~~July 2016~~.  
 **[iGov.OAuth2]** |  [Richer, J.](mailto:openid@justin.richer.org), "[iGov Profile for OAuth 2.0](http://openid.net/specs/openid-igov-oauth2-1_0.html)", October 2018.  
-**[iGov-NL.OAuth2]** |  Terpstra, F., "[NL GOV Assurance profile for OAuth 2.0](https://docs.geostandaarden.nl/api/oauth/)", March 2019.__
+**[iGov-NL.OAuth2]** |  **Terpstra, F., "[NL GOV Assurance profile for OAuth 2.0](https://docs.geostandaarden.nl/api/oauth/)", March 2019.**__
 **[iGov.OIDC]** |  [Varley, M.](mailto:mike.varley@securekey.com), "[iGov Profile for OpenID Connect 1.0](https://openid.net/specs/openid-igov-openid-connect-1_0.html)", October 2018.__
 **[OpenID.Core]** |  Sakimura, N., Bradley, J., Jones, M., de Medeiros, B. and C. Mortimore, "[OpenID Connect Core 1.0](http://openid.net/specs/openid-connect-core-1_0.html)", August 2015.  
 **[OpenID.Discovery]** |  Sakimura, N., Bradley, J., Jones, M. and E. Jay, "[OpenID Connect Discovery 1.0](http://openid.net/specs/openid-connect-discovery-1_0.html)", August 2015.  
