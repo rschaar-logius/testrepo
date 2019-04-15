@@ -209,13 +209,13 @@ The following parameters are specified:
 <dd><b>REQUIRED.</b> MUST be set to authorization_code.</dd>
 
 <dt>code</dt>
-<dd>**REQUIRED.** The value of the code parameter returned in the authorization response.</dd>
+<dd><b>REQUIRED.</b> The value of the code parameter returned in the authorization response.</dd>
 
 <dt>client_assertion_type</dt>
-<dd>**REQUIRED.** MUST be set to urn:ietf:params:oauth:client-assertion-type:jwt-bearer.</dd>
+<dd><b>REQUIRED.</b> MUST be set to urn:ietf:params:oauth:client-assertion-type:jwt-bearer.</dd>
 
 <dt>client_assertion</dt>
-<dd>**REQUIRED.** The value of the signed client authentication JWT generated as described below. The RP **MUST** generate a new **client**_assertion JWT for each call to the token endpoint.</dd>
+<dd><b>REQUIRED.</b> The value of the signed client authentication JWT generated as described below. The RP **MUST** generate a new **client**_assertion JWT for each call to the token endpoint.</dd>
 
 </dl>
 
@@ -226,7 +226,7 @@ In case the PKCE protocol was used by the Client in the relevant Authentication 
 <dl>
 
 <dt>code_verifier</dt>
-<dd>~~OPTIONAL. If~~ **REQUIRED in case** the PKCE protocol was used by the Client in the relevant Authentication Request, the code_verifier MUST be present and the value MUST be the original random code, used to create the hashed challenge in `code_challenge`.</dd>
+<dd><strikethrough>OPTIONAL. If</strikethrough> <b>REQUIRED in case</b> the PKCE protocol was used by the Client in the relevant Authentication Request, the code_verifier MUST be present and the value MUST be the original random code, used to create the hashed challenge in `code_challenge`.</dd>
 
 </dl>
 
@@ -244,13 +244,13 @@ Clients MUST verify the following in received ID tokens:
 <dl>
 
 <dt>iss</dt>
-<dd>The "issuer" field is the Uniform Resource Locat~~e~~**o**r (URL) of the ~~expected issuer~~ **OpenID Provider**</dd>
+<dd>The "issuer" field is the Uniform Resource Locat<strikethrough>e</strikethrough><b>o</b>r (URL) of the <strikethrough>expected issuer</strikethrough> <b>OpenID Provider</b></dd>
 
 <dt>aud</dt>
-<dd>The "audience" field contains the client ID(s) of the ~~client~~**Relying Party or Relying Parties. Any Relying Party MUST validate they are listed as audience for this ID-token.**</dd>
+<dd>The "audience" field contains the client ID(s) of the <strikethrough>client</strikethrough><b>Relying Party or Relying Parties. Any Relying Party MUST validate they are listed as audience for this ID-token.</b></dd>
 
 <dt>exp, iat, nbf</dt>
-<dd>The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges**.**</dd>
+<dd>The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges<b>.</b></dd>
 
 </dl>
 
@@ -262,7 +262,7 @@ Clients MUST verify the following in received ID tokens:
 <dd>The "nonce" field MUST be used by Clients to detect/prevent CSRF, replay and other attacks and Clients MUST verify that the nonce Claim Value is equal to the value of the nonce parameter sent in the Authentication Request.</dd>
 
 <dt>acr</dt>
-<dd>Client**s** MUST validate the authentication context class reference, if present, satisfies the minimum required before authorizing access to any resource or performing any operation on behalf of the identified subject.</dd>
+<dd>Client<b>s</b> MUST validate the authentication context class reference, if present, satisfies the minimum required before authorizing access to any resource or performing any operation on behalf of the identified subject.</dd>
 
 </dl>
 
@@ -342,10 +342,10 @@ Token). ID Token values have the following meanings:
 <dl>
 
 <dt>iss</dt>
-<dd>REQUIRED. The "issuer" field is the Uniform Resource Locat~~e~~**o**r (URL) of the ~~expected issuer~~ **OpenID Provider**.</dd>
+<dd>REQUIRED. The "issuer" field is the Uniform Resource Locat<strikethrough>e</strikethrough><b>o</b>r (URL) of the <strikethrough>expected issuer</strikethrough> <b>OpenID Provider</b>.</dd>
 
 <dt>aud</dt>
-<dd>REQUIRED. The "audience" field contains the client ID(s) of the ~~client~~**Relying Party or Relying Parties**.</dd>
+<dd>REQUIRED. The "audience" field contains the client ID(s) of the <strikethrough>client</strikethrough><b>Relying Party or Relying Parties</b>.</dd>
 
 <dt>sub</dt>
 <dd>REQUIRED. The identifier of the user. OpenID Providers MUST support a pairwise identifier in accordance with OpenID Connect section 8.1. See Pairwise Identifiers below on when it may be useful to relax this requirement.</dd>
@@ -365,7 +365,7 @@ The parameters `vot` and `vtm` are not actively used in the iGov-NL profile, as 
 <dd>REQUIRED if vot is provided. The trustmark URI as specified in Vectors of Trust . See Vectors of Trust for more details.</dd>
 
 <dt>acr</dt>
-<dd>OPTIONAL. The LoA the user was authenticated at. MUST be a member of the acr_values list from the authentication request **or that was agreed upon through other means**. The OpenID Provider MUST NOT include this field if vot is provided. See Authentication Context for more details.</dd>
+<dd>OPTIONAL. The LoA the user was authenticated at. MUST be a member of the acr_values list from the authentication request <b>or that was agreed upon through other means</b>. The OpenID Provider MUST NOT include this field if vot is provided. See Authentication Context for more details.</dd>
 
 <dt>nonce</dt>
 <dd>REQUIRED. MUST match the nonce value that was provided in the authentication request.</dd>
@@ -374,7 +374,7 @@ The parameters `vot` and `vtm` are not actively used in the iGov-NL profile, as 
 <dd>REQUIRED. A unique identifier for the token, which can be used to prevent reuse of the token.</dd>
 
 <dt>auth_time</dt>
-<dd>RECOMMENDED. This SHOULD be included if the **OpenID** Provider can assert an end-user's authentication intent was demonstrated. For example, a login event where the user took some action to authenticate.</dd>
+<dd>RECOMMENDED. This SHOULD be included if the <b>OpenID</b> Provider can assert an end-user's authentication intent was demonstrated. For example, a login event where the user took some action to authenticate.</dd>
 
 <dt>exp, iat, nbf</dt>
 <dd>REQUIRED. The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges.</dd>
@@ -619,7 +619,7 @@ minimum the following fields:
 <dd>REQUIRED. The fully qualified URL of the OpenID Provider's authorization endpoint defined by [RFC6749].</dd>
 
 <dt>token_endpoint</dt>
-<dd>REQUIRED. The fully qualified URL of the server's token endpoint **as** defined by [RFC6749].</dd>
+<dd>REQUIRED. The fully qualified URL of the server's token endpoint <b>as</b> defined by [RFC6749].</dd>
 
 </dl>
 
@@ -628,7 +628,7 @@ minimum the following fields:
 <dl>
 
 <dt>userinfo_endpoint</dt>
-<dd>REQUIRED. The fully qualified URL of the server's user info endpoint **as** defined by [OpenID.Discovery].</dd>
+<dd>REQUIRED. The fully qualified URL of the server's user info endpoint <b>as</b> defined by [OpenID.Discovery].</dd>
 
 </dl>
 
@@ -637,16 +637,16 @@ minimum the following fields:
 <dl>
 
 <dt>introspection_endpoint</dt>
-<dd>OPTIONAL. The fully qualified URL of the server's introspection endpoint **as** defined by OAuth Token Introspection.</dd>
+<dd>OPTIONAL. The fully qualified URL of the server's introspection endpoint <b>as</b> defined by OAuth Token Introspection.</dd>
 
 <dt>revocation_endpoint</dt>
-<dd>OPTIONAL. The fully qualified URL of the server's revocation endpoint **as** defined by OAuth Token Revocation.</dd>
+<dd>OPTIONAL. The fully qualified URL of the server's revocation endpoint <b>as</b> defined by OAuth Token Revocation.</dd>
 
 <dt>jwks_uri</dt>
 <dd>REQUIRED. The fully qualified URI of the server's public key in JWK Set format. For verifying the signatures on the id_token.</dd>
 
 <dt>scopes_supported</dt>
-<dd>REQUIRED. The list of scopes, including iGov-**NL** scopes, the server supports.</dd>
+<dd>REQUIRED. The list of scopes, including iGov-<b>NL</b> scopes, the server supports.</dd>
 
 <dt>response_types_supported</dt>
 <dd>REQUIRED. MUST be set to code, since only authorization code flow is supported by this profile.</dd>
@@ -657,8 +657,8 @@ minimum the following fields:
 <dt>vot</dt>
 <dd>OPTIONAL. The vectors supported.</dd>
 
-<dt>acr_values_**supported**</dt>
-<dd>OPTIONAL. The acr** value**s supported.</dd>
+<dt>acr_values_<b>supported</b></dt>
+<dd>OPTIONAL. The acr<bb> value</b>s supported.</dd>
 
 </dl>
 
@@ -864,7 +864,7 @@ As the Netherlands has standardized on using a citizen identification number (_B
 <dl>
 
 <dt>doc</dt>
-<dd>The identity document type(s) and associated "number" the Provider is capable of providing. Mu~~t~~l**t**iple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available.</dd>
+<dd>The identity document type(s) and associated "number" the Provider is capable of providing. Mu<strikethrough>t</strikethrough>l<b>t</b>iple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available.</dd>
 
 </dl>
 
