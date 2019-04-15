@@ -330,7 +330,7 @@ The jwks structure MUST include the public key parameters with the same values o
 All ID Tokens MUST be signed by the OpenID Provider's private signature key.
 ID Tokens MAY be encrypted using the appropriate key of the requesting client.
 
-~~The ~~ID Token**s** MUST expire and SHOULD have an active lifetime no longer than
+~~The~~ ID Token**s** MUST expire and SHOULD have an active lifetime no longer than
 five minutes. Since the ID token is consumed by the client and not presented
 to remote systems, much shorter expiration times are RECOMMENDED where
 possible.
