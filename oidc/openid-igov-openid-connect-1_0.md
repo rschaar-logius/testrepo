@@ -1,5 +1,4 @@
 # TODO
- * check refs, source iGov OIDC profile looks somewhat inconsistent with iGov OAuth2 profile
  * add NCSC TLS reference once update is available
 
 
