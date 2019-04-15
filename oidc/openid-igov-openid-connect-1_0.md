@@ -206,7 +206,7 @@ The following parameters are specified:
 <dl>
 
 <dt>grant_type</dt>
-<dd>**REQUIRED.** MUST be set to authorization_code.</dd>
+<dd><b>REQUIRED.</b> MUST be set to authorization_code.</dd>
 
 <dt>code</dt>
 <dd>**REQUIRED.** The value of the code parameter returned in the authorization response.</dd>
