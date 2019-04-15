@@ -1,7 +1,3 @@
-# TODO
- * add NCSC TLS reference once update is available
-
-
 # Abstract
 
 The OpenID Connect protocol defines an identity federation system that allows
@@ -979,7 +975,7 @@ All transactions MUST be protected in transit by TLS as described in BCP195.
 
 **iGov-NL**
 
-In addition to the Best Current Practice for TLS, it is highly RECOMMENDED for all conforming implementations to incorporate the TLS guidelines from the Dutch NCSC into their implementations. If these guidelines are applied:
+In addition to the Best Current Practice for TLS, it is highly RECOMMENDED for all conforming implementations to incorporate the TLS guidelines from the Dutch NCSC [NCSC.TLS] into their implementations. If these guidelines are applied:
 * For back-channel communication, the guidelines categorized as "good" MUST be applied.
 * For front-channel communication, the guidelines for "good" MUST be applied and the guidelines for "sufficient" MAY be applied, depending target audience and support requirements.
 * Guidelines categorized as "insufficient" MUST NOT be applied and those categorized as "deprecated" SHOULD NOT be used.
@@ -999,6 +995,7 @@ Model and Security Considerations document.
 **[iGov.OAuth2]** |  [Richer, J.](mailto:openid@justin.richer.org), "[iGov Profile for OAuth 2.0](http://openid.net/specs/openid-igov-oauth2-1_0.html)", October 2018.  
 **[iGov-NL.OAuth2]** |  **Terpstra, F., "[NL GOV Assurance profile for OAuth 2.0](https://docs.geostandaarden.nl/api/oauth/)", March 2019.**__
 **[iGov.OIDC]** |  [Varley, M.](mailto:mike.varley@securekey.com), "[iGov Profile for OpenID Connect 1.0](https://openid.net/specs/openid-igov-openid-connect-1_0.html)", October 2018.__
+**[NCSC.TLS]** | **NCSC of the Netherlands, "[ICT-beveiligingsrichtlijnen voor Transport Layer Security (TLS)](https://www.ncsc.nl/actueel/whitepapers/ict-beveiligingsrichtlijnen-voor-transport-layer-security-tls.html)", version *2.0, April 2019*.__
 **[OpenID.Core]** |  Sakimura, N., Bradley, J., Jones, M., de Medeiros, B. and C. Mortimore, "[OpenID Connect Core 1.0](http://openid.net/specs/openid-connect-core-1_0.html)", August 2015.  
 **[OpenID.Discovery]** |  Sakimura, N., Bradley, J., Jones, M. and E. Jay, "[OpenID Connect Discovery 1.0](http://openid.net/specs/openid-connect-discovery-1_0.html)", August 2015.  
 **[RFC2119]** |  Bradner, S., "[Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119)", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.  
