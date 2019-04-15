@@ -174,7 +174,7 @@ Vectors of Trust are not actively used in the iGov-NL profile, as Europe uses le
 <dd>OPTIONAL. Lists the acceptable LoAs for this authentication. See (below). MUST not be set if vtr is specified.</dd>
 
 <dt>code_challenge and code_challenge_method</dt>
-<dd>OPTIONAL. If the PKCE protocol is being used by the client. See OAUTH profile for iGov-**NL**.</dd>
+<dd>OPTIONAL. If the PKCE protocol is being used by the client. See OAUTH profile for iGov-<b>NL</b>.</dd>
 
 </dl>
 
@@ -215,7 +215,7 @@ The following parameters are specified:
 <dd><b>REQUIRED.</b> MUST be set to urn:ietf:params:oauth:client-assertion-type:jwt-bearer.</dd>
 
 <dt>client_assertion</dt>
-<dd><b>REQUIRED.</b> The value of the signed client authentication JWT generated as described below. The RP **MUST** generate a new **client**_assertion JWT for each call to the token endpoint.</dd>
+<dd><b>REQUIRED.</b> The value of the signed client authentication JWT generated as described below. The RP <b>MUST</b> generate a new <b>client</b>_assertion JWT for each call to the token endpoint.</dd>
 
 </dl>
 
@@ -226,7 +226,7 @@ In case the PKCE protocol was used by the Client in the relevant Authentication 
 <dl>
 
 <dt>code_verifier</dt>
-<dd><strikethrough>OPTIONAL. If</strikethrough> <b>REQUIRED in case</b> the PKCE protocol was used by the Client in the relevant Authentication Request, the code_verifier MUST be present and the value MUST be the original random code, used to create the hashed challenge in `code_challenge`.</dd>
+<dd><del>OPTIONAL. If</del> <b>REQUIRED in case</b> the PKCE protocol was used by the Client in the relevant Authentication Request, the code_verifier MUST be present and the value MUST be the original random code, used to create the hashed challenge in `code_challenge`.</dd>
 
 </dl>
 
@@ -244,10 +244,10 @@ Clients MUST verify the following in received ID tokens:
 <dl>
 
 <dt>iss</dt>
-<dd>The "issuer" field is the Uniform Resource Locat<strikethrough>e</strikethrough><b>o</b>r (URL) of the <strikethrough>expected issuer</strikethrough> <b>OpenID Provider</b></dd>
+<dd>The "issuer" field is the Uniform Resource Locat<del>e</del><b>o</b>r (URL) of the <del>expected issuer</del> <b>OpenID Provider</b></dd>
 
 <dt>aud</dt>
-<dd>The "audience" field contains the client ID(s) of the <strikethrough>client</strikethrough><b>Relying Party or Relying Parties. Any Relying Party MUST validate they are listed as audience for this ID-token.</b></dd>
+<dd>The "audience" field contains the client ID(s) of the <del>client</del><b>Relying Party or Relying Parties. Any Relying Party MUST validate they are listed as audience for this ID-token.</b></dd>
 
 <dt>exp, iat, nbf</dt>
 <dd>The "expiration", "issued at", and "not before" timestamps for the token are dates (integer number of seconds since from 1970-01-01T00:00:00Z UTC) within acceptable ranges<b>.</b></dd>
@@ -342,10 +342,10 @@ Token). ID Token values have the following meanings:
 <dl>
 
 <dt>iss</dt>
-<dd>REQUIRED. The "issuer" field is the Uniform Resource Locat<strikethrough>e</strikethrough><b>o</b>r (URL) of the <strikethrough>expected issuer</strikethrough> <b>OpenID Provider</b>.</dd>
+<dd>REQUIRED. The "issuer" field is the Uniform Resource Locat<del>e</del><b>o</b>r (URL) of the <del>expected issuer</del> <b>OpenID Provider</b>.</dd>
 
 <dt>aud</dt>
-<dd>REQUIRED. The "audience" field contains the client ID(s) of the <strikethrough>client</strikethrough><b>Relying Party or Relying Parties</b>.</dd>
+<dd>REQUIRED. The "audience" field contains the client ID(s) of the <del>client</del><b>Relying Party or Relying Parties</b>.</dd>
 
 <dt>sub</dt>
 <dd>REQUIRED. The identifier of the user. OpenID Providers MUST support a pairwise identifier in accordance with OpenID Connect section 8.1. See Pairwise Identifiers below on when it may be useful to relax this requirement.</dd>
@@ -533,7 +533,7 @@ parameter.
 Both of these methods allow for clients to create a request that is protected
 from tampering through the browser, allowing for a higher security mode of
 operation for clients and applications that require it. Clients are not
-required to use request objects**.**~~, but~~ OpenID Providers ~~are required to~~ **MUST** support
+required to use request objects<b>.</b>~~, but~~ OpenID Providers ~~are required to~~ **MUST** support
 **signed** requests ~~using them~~ **request objects passed by value and MAY 
 support encryption of request objects and pass by reference request objects**.
 
@@ -864,7 +864,7 @@ As the Netherlands has standardized on using a citizen identification number (_B
 <dl>
 
 <dt>doc</dt>
-<dd>The identity document type(s) and associated "number" the Provider is capable of providing. Mu<strikethrough>t</strikethrough>l<b>t</b>iple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available.</dd>
+<dd>The identity document type(s) and associated "number" the Provider is capable of providing. Mu<del>t</del>l<b>t</b>iple document types MAY be returned. This could be passport, driver's license, national ID card, health insurance no., and so on. See the Claims below for the document claims available.</dd>
 
 </dl>
 
