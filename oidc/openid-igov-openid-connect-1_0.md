@@ -183,7 +183,7 @@ A sample request may look like:
       response_type=code
       &client_id=827937609728-m2mvqffo9bsefh4di90saus4n0diar2h
       &scope=openid
-      &redirect_uri=https%3A%2F%2Frp.fed1.gov%2Foidc%2FloginResponse
+      &redirect_uri=https%3A%2F%2Frp.example.nl%2Foidc%2FloginResponse
       &state=2ca3359dfbfd0
 	  &nonce=9d3252993a38454c8a6c3a4b86997aaa
       &acr_values=http%3A%2F%2Feidas.europa.eu%2FLoA%2Fsubstantial
