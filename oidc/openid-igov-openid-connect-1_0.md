@@ -527,8 +527,8 @@ Both of these methods allow for clients to create a request that is protected
 from tampering through the browser, allowing for a higher security mode of
 operation for clients and applications that require it. Clients are not
 required to use request objects<b>.</b>~~, but~~ OpenID Providers ~~are required to~~ **MUST** support
-**signed** requests ~~using them~~ **request objects passed by value and MAY 
-support encryption of request objects and pass by reference request objects**.
+requests using ~~them~~ **signed request objects passed by value, MAY 
+support requests using signed request objects pass by reference and MAY support encryption of (signed) request objects**.
 
 **iGov-NL**
 
@@ -971,7 +971,7 @@ outside the scope of this specification.
 
 #  6. Security Considerations
 
-All transactions MUST be protected in transit by TLS as described in BCP195.
+All transactions MUST be protected in transit ~~by~~**using** TLS as described in BCP195.
 
 **iGov-NL**
 
